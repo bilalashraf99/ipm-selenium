@@ -1,0 +1,31 @@
+{
+  "name": "ipm-selenium",
+  "version": "0.0.1",
+  "description": "IPM UI auto-tests powered by Selenium/Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aurea-software/ipm-selenium.git"
+  },
+  "keywords": [
+    "ipm",
+    "selenium",
+    "test"
+  ],
+  "author": "Gabor Szekeres",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aurea-software/ipm-selenium/issues"
+  },
+  "homepage": "https://github.com/aurea-software/ipm-selenium#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "chai-as-promised": "^5.2.0",
+    "nconf": "^0.8.2",
+    "wd": "^0.4.0"
+  }
+}
