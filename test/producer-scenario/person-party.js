@@ -12,10 +12,10 @@ var url = config.get("url");
 var username = config.get("username");
 var password = config.get("password");
 
-describe("IPM", function() {
+describe("Producer scenario, Person Party", function() {
   this.timeout(30000);
 
-  describe("login", function() {
+  describe("TC1", function() {
     var browser;
    
     before(function (done) {
@@ -46,26 +46,54 @@ describe("IPM", function() {
         .nodeify(done);
     });
 
-    it("should retrieve the page title", function (done) {
-      browser
-        .title()
-        .then(function(title) {
-          title.should.include("Aurea");
-        })
-        .nodeify(done);
-    });
-   
     it("should enter username/password and submit", function  (done) {
       browser
         .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(username)
         .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(password)
         .elementByCss('form[name=loginForm] input[type=submit]').click()
-        .eval("window.location.href").then(function (location) {
-          location.should.include("bizsite.task");
-        })
-        .title().then(function(title) {
-          title.should.equal("My Tasks - Aurea Savvion BusinessManager");
-        })
+        .nodeify(done);
+    });
+    
+    it("should click OnBoarding link in My Widgets section", function  (done) {
+      browser
+        .waitForElementByLinkText('OnBoarding', 10000).click()
+        .nodeify(done);
+    });
+    
+    it("should click Create button", function  (done) {
+      browser
+        .frame('AppShowFrame')
+        .waitForElementById('createButton', 15000).click()
+        .nodeify(done);
+    });
+    
+    it("should fill form with invalid data and submit", function  (done) {
+      browser
+        .elementById('TaxIdDs').type('123456789')
+        .elementById('EmailDs').type('abc@gmail.com')
+        .elementById('FirstNameDsStart').type('Thomas')
+        .elementById('LastNameDsStart').type('Feola')
+        .elementById('combobox6').type('ifs bank')
+        .elementById('createButton').click()
+        .nodeify(done);
+    });
+    
+    it("should dismiss the popup message", function  (done) {
+      browser
+        .waitForElementByLinkText('OK', 10000).click()
+        .nodeify(done);
+    });
+    
+    it("should try to enter too long Tax ID", function  (done) {
+      browser
+        .elementById('TaxIdDs').type('1234567890')
+        .nodeify(done);
+    });
+    
+    it("should click on Logout link", function  (done) {
+      browser
+        .frame()
+        .elementByLinkText('Logout').click()
         .nodeify(done);
     });
   });
