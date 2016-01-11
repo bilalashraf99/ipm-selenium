@@ -18,7 +18,7 @@ describe("Producer scenario, Person Party", function() {
   describe("TC1", function() {
     var browser;
    
-    before(function (done) {
+    before(function () {
       browser = wd.promiseChainRemote(config.get("remote")); 
 
       // optional extra logging
@@ -29,72 +29,63 @@ describe("Producer scenario, Person Party", function() {
         console.log(' > ' + meth, path, data || '');
       });
 
-      browser
-        .init(config.get("environment"))
-        .nodeify(done);  //same as : .then(function() { done(); });
+      return browser
+        .init(config.get("environment"));
     });
    
-    after(function (done) {
-      browser
-        .quit()
-        .nodeify(done);
+    after(function () {
+      return browser
+        .quit();
     });
    
-    it("should load login page", function (done) {
-      browser
-        .get(url)
-        .nodeify(done);
+    it("should load login page", function () {
+      return browser
+        .get(url);
     });
 
-    it("should enter username/password and submit", function  (done) {
-      browser
+    it("should enter username/password and submit", function  () {
+      return browser
         .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(username)
         .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(password)
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
-        .nodeify(done);
+        .elementByCss('form[name=loginForm] input[type=submit]').click();
     });
     
-    it("should click OnBoarding link in My Widgets section", function  (done) {
-      browser
-        .waitForElementByLinkText('OnBoarding', 10000).click()
-        .nodeify(done);
+    it("should click OnBoarding link in My Widgets section", function  () {
+      return browser
+        .waitForElementByLinkText('OnBoarding', 10000).click();
     });
     
-    it("should click Create button", function  (done) {
-      browser
+    it("should submit an empty form", function  () {
+      return browser
         .frame('AppShowFrame')
-        .waitForElementById('createButton', 15000).click()
-        .nodeify(done);
+        .waitForElementById('createButton', 15000).click();
     });
     
-    it("should fill form with invalid data and submit", function  (done) {
-      browser
+    it("should fill form with invalid data and submit", function  () {
+      return browser
         .elementById('TaxIdDs').type('123456789')
         .elementById('EmailDs').type('abc@gmail.com')
         .elementById('FirstNameDsStart').type('Thomas')
         .elementById('LastNameDsStart').type('Feola')
         .elementById('combobox6').type('ifs bank')
-        .elementById('createButton').click()
-        .nodeify(done);
+        .elementById('createButton').click();
     });
     
-    it("should dismiss the popup message", function  (done) {
-      browser
-        .waitForElementByLinkText('OK', 10000).click()
-        .nodeify(done);
+    it("should dismiss the popup message", function  () {
+      return browser
+        .waitForElementByLinkText('OK', 10000).click();
     });
     
-    it("should try to enter too long Tax ID", function  (done) {
-      browser
+    it("should try to enter too long Tax ID", function  () {
+      return browser
         .elementById('TaxIdDs').type('1234567890')
-        .nodeify(done);
+        .getValue().should.become('123456789');
     });
     
-    it("should click on Logout link", function  (done) {
-      browser
+    it("should click on Logout link", function  () {
+      return browser
         .frame()
-        .elementByLinkText('Logout').click()
-        .nodeify(done);
+        .elementByLinkText('Logout').click();
     });
   });
 });
