@@ -2,6 +2,8 @@
     "remote": "http://127.0.0.1:4444/wd/hub",
     "environment": { "browserName": "chrome" },
     "url": "http://172.30.89.191:18793/sbm/bpmportal/login.jsp",
-    "username": "AnalystUser1",
-    "password": "AnalystUser1"
+    "analyst.username": "AnalystUser1",
+    "analyst.password": "AnalystUser1",
+    "ebms.username": "ebms",
+    "ebms.password": "ebms"
 }
