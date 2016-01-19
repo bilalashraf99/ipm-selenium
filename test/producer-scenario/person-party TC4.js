@@ -8,7 +8,8 @@ chai.should();
 
 var wd = require('wd');
 
-var url = config.get("url");
+var url = config.get("ipm.url");
+var dcmUrl = config.get("dcm.url");
 
 describe("Producer scenario, Person Party", function() {
   this.timeout(30000);
@@ -16,6 +17,9 @@ describe("Producer scenario, Person Party", function() {
   var browser;
    
   before(function () {
+    // enables chai assertion chaining
+    chaiAsPromised.transferPromiseness = wd.transferPromiseness;
+    
     browser = wd.promiseChainRemote(config.get("remote")); 
 
     // optional extra logging
@@ -27,18 +31,17 @@ describe("Producer scenario, Person Party", function() {
     });
 
     return browser
-      .init(config.get("environment"));
+      .init(config.get("environment"))
+      .setWindowSize(1200, 1000);
   });
  
-/*  after(function () {
+  after(function () {
     return browser
-      .frame()
-      .elementByLinkText('Logout').click()
       .quit();
-  });*/
+  });
 
 // TC4
-  describe("TC4", function() {
+  describe("Initiate New Onboarding process", function() {
   
     it("should load login page", function () {
       return browser
@@ -88,7 +91,7 @@ describe("Producer scenario, Person Party", function() {
     it("should log in as user 'AnalystUser1'", function  () {
       return browser
         .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.username"))
+        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
         .elementByCss('form[name=loginForm] input[type=submit]').click();
     });
     
@@ -96,7 +99,8 @@ describe("Producer scenario, Person Party", function() {
       return browser
         .waitForElementByLinkText('OnBoarding', 10000).click();
     });
-    
+
+    //CURRENTLY FAILING:    
     it("should fill form with user data and submit", function  () {
       return browser
         .frame('AppShowFrame')
@@ -105,7 +109,9 @@ describe("Producer scenario, Person Party", function() {
         .elementById('FirstNameDsStart').type('John')
         .elementById('LastNameDsStart').type('Blumberg')
         .elementById('combobox6').type('ifs bank')
-        .elementById('createButton').click();
+        .elementById('createButton').click()
+        .sleep(2000)
+        .waitForElementByCss('.x-message-box .x-header-text').text().should.eventually.not.contain('error');
     });
     
     it("should click on Dashboard tab", function  () {
@@ -114,29 +120,54 @@ describe("Producer scenario, Person Party", function() {
         .elementByLinkText('Dashboard', 10000).click();
     });
     
+    //CURRENTLY FAILING:
     it("should have new case among search results", function  () {
-      var row;
-      var searchResultTableRows = browser.waitForElementsByCss('#case_SearchResultsDefault_grid tr').then(function(rows) {
-        for (var i = 0; i < rows.length; i++) {
-          var row = rows[i];
-          if (row.elementByCss(':nth-child(7)').text() === '061328137') {
-            break;
-          }
-        }        
+      return browser
+        .waitForElementByXPath("//*[@id='case_SearchResultsDefault']/descendant::td[@data-qtip='067600492']/parent::tr/child::td[@data-qtip='John Blumberg']/parent::tr/child::td[@data-qtip='ACTIVATED']", 10000);
+    });
+    
+    it("should logout", function  () {
+      return browser
+        .frame()
+        .elementByLinkText('Logout').click();
+    });
+    
+    it("should load DCM login page", function () {
+      return browser
+        .get(dcmUrl);
+    });
+    
+    it("should log in as user 'sa'", function  () {
+      return browser
+        .elementByCss('form[name=LoginForm] input[name=LOGINNAME]').type(config.get("sa.username"))
+        .elementByCss('form[name=LoginForm] input[name=PASSWORD]').type(config.get("sa.password"))
+        .elementByCss('form[name=LoginForm] input[type=SUBMIT]').click();
+    });
+    
+    it("should navigate to Party -> Party", function  () {
+      return browser
+        .frame("navbar")
+        .waitForElementByCss('a#Party').click();
+    });
 
-
-      return Promise.all([        
-        row.elementByCss('td[data-qtip="Minal Feola"]').text().should.become('Minal Feola'),
-        row.elementByCss('td[data-qtip="061328137"]').text().should.become('061328137'),
-        row.elementByCss(':nth-child(3)').text().should.become('ACTIVATED')
-//        browser.waitForElementByCss('#case_SearchResultsDefault_grid td[data-qtip="John Blumberg"]').text().should.become('John Blumberg'),
-//        browser.elementByCss('#case_SearchResultsDefault_grid td[data-qtip=067600492]').text().should.become('067600492')
-
-//        browser.waitForElementByCss('#case_SearchResultsDefault_grid td[data-qtip="Minal Feola"]').text().should.become('Minal Feola'),
-//        browser.elementByCss('#case_SearchResultsDefault_grid td[data-qtip="061328137"]').text().should.become('061328137')
-      ]);
-      
-      });
+    it("should perform search on Tax ID", function  () {
+      return browser
+        .frame()
+        .frame("container")
+        .frame("cacheframe0")
+        .frame("subpage")
+        .waitForElementByCss('input[name=Field_Person_Main_TaxID_Search_Value]').type('067600492')
+        .elementByLinkText('Search').click()
+        .waitForElementByCss('table[name=Grid_Person_Main] tbody td:nth-child(2)').text().should.become('Blumberg')
+        .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(5)').text().should.become('***-**-0492')
+        .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(11)').text().should.become('solnsengg@gmail.com');
+    });
+    
+    it("should logout", function  () {
+      return browser
+        .frame()
+        .frame("navbar")
+        .elementByLinkText('Logout').click();
     });
     
   });
