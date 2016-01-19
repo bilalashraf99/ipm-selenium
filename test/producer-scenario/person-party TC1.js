@@ -8,7 +8,7 @@ chai.should();
 
 var wd = require('wd');
 
-var url = config.get("url");
+var url = config.get("ipm.url");
 var username = config.get("analyst.username");
 var password = config.get("analyst.password");
 

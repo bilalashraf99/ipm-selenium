@@ -8,7 +8,7 @@ chai.should();
 
 var wd = require('wd');
 
-var url = config.get("url");
+var url = config.get("ipm.url");
 var username = config.get("analyst.username");
 var password = config.get("analyst.password");
 
@@ -85,7 +85,8 @@ describe("Producer scenario, Person party", function() {
         .elementById('combobox1').getValue().should.eventually.equal('Person')
         .elementById('TaxIdDs').getValue().should.eventually.be.empty
         .elementById('EmailDs').getValue().should.eventually.be.empty
-        .elementById('OrganizationNameDsStart').getValue().should.eventually.be.empty
+        .elementById('FirstNameDsStart').getValue().should.eventually.be.empty
+        .elementById('LastNameDsStart').getValue().should.eventually.be.empty
         .elementById('combobox6').getValue().should.become('Select One')
         .elementById('checkbox1').isSelected().should.become(false)
         .elementById('checkbox2').isSelected().should.become(true)
