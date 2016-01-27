@@ -35,10 +35,10 @@ describe("Producer scenario, Person Party", function() {
   });
  
   after(function () {
-//    return browser
-//      .frame()
-//      .elementByLinkText('Logout').click()
-//      .quit();
+    return browser
+      .frame()
+      .elementByLinkText('Logout').click()
+      .quit();
   });
 
 // TC5
@@ -92,8 +92,6 @@ describe("Producer scenario, Person Party", function() {
       return browser
         .waitForElementByLinkText('OK', 10000).click();
     }); 
-    
-    // INCORRECT STEP, user does not immediately see login page
     
     it("should click on Logout link", function  () {
       return browser
