@@ -85,5 +85,7 @@ describe("Producer scenario, Person Party", function() {
         .waitForElementByCss('div#resultDiv', 10000).text()
         .should.eventually.include("Thank you for completing your application. It will now be reviewed internally.");
     });
+    
+  });
   
 });
