@@ -21,7 +21,9 @@
     "url": "https://github.com/aurea-software/ipm-selenium/issues"
   },
   "homepage": "https://github.com/aurea-software/ipm-selenium#readme",
-  "dependencies": {},
+  "dependencies": {
+    "date-utils": "^1.2.18"
+  },
   "devDependencies": {
     "chai": "^3.4.1",
     "chai-as-promised": "^5.2.0",
