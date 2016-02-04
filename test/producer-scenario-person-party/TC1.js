@@ -43,7 +43,7 @@ describe("Producer scenario, Person party", function() {
   });
 
 // TC1
-  describe("Validate fields in Initiate New Onboarding – Producer", function() {
+  describe("Validate fields in Initiate New Onboarding - Producer", function() {
   
     it("should load login page", function () {
       return browser

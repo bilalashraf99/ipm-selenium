@@ -121,7 +121,7 @@ describe("Producer scenario, Person Party", function() {
     
     it("should have new case among search results", function  () {
       return browser
-        .waitForElementByCss('select#case_searchField').type('TAX_ID')
+        .waitForElementByCss('select#case_searchField option[value=TAX_ID]').click()
         .waitForElementByCss('input#case_searchText').type('067600492')
         .waitForElementByCss('input#case_search').click()
         .waitForElementByXPath("//*[@id='case_SearchResultsDefault']/descendant::td[@data-qtip='067600492']/parent::tr/child::td[@data-qtip='John Blumberg']/parent::tr/child::td[@data-qtip='ACTIVATED']", 10000);
