@@ -66,7 +66,7 @@ describe("Producer scenario, Person Party", function() {
           });
       }        
       return browser
-        .waitForElementByCss('select#searchField').type('TAX_ID')
+        .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
         .elementByCss('input#searchText').type('067600492')
         .elementByCss('input#search').click()
         .elementByXPath('//span[normalize-space(text())="CREATED DATE"]').click().click()
@@ -152,7 +152,7 @@ describe("Producer scenario, Person Party", function() {
         .elementByCss('div#appointmentRequestsContentDiv').elementByLinkText('Accept').click() 
         // TODO: Upload Documents section?
         // TODO: E-Sign Documents section?
-        .elementByCss('textarea[name=txaCurrComm]').type('Some sections are rejected by Analyst');
+        .elementByCss('textarea[name=txaCurrComm]').type('Some sections are rejected by Analyst')
         .elementByCss('input[type=submit][value=Fix]').click();
     });
   });
