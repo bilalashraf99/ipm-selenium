@@ -1,4 +1,5 @@
 var common = require("../common");
+var config = common.config;
 var browser = common.browser;
 
 var url = config.get("ipm.url");
