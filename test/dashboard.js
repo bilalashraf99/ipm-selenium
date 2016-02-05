@@ -27,8 +27,8 @@ describe("Dashboard", function () {
   
   after(function () {
     return browser
-      .frame()
-      .elementByLinkText('Logout').click()
+//      .frame()
+//      .elementByLinkText('Logout').click()
       .quit();
   });
   
