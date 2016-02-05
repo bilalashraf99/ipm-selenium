@@ -281,28 +281,28 @@ describe("Producer Scenario, Person Party - Session 2", function() {
     it("should upload W-9", function () {
       return browser
         .elementByXPath('//td[normalize-space(text())="W-9"]/following-sibling::td/input').click()
-        .waitForElementByCss('form#uploadFile input[type=file]').sendKeys("/_Work/test.docx")
+        .waitForElementByCss('form#uploadFile input[type=file]').sendKeys(__dirname + "/files/test.docx")
         .elementByCss('form#uploadFile input[value=Upload]').click();
     });
     
     it("should upload Proof of E & O", function () {
       return browser
         .elementByXPath('//td[normalize-space(text())="Proof of E & O"]/following-sibling::td/input').click()
-        .waitForElementByCss('form#uploadFile input[type=file]').sendKeys("/_Work/test.docx")
+        .waitForElementByCss('form#uploadFile input[type=file]').sendKeys(__dirname + "/files/test.docx")
         .elementByCss('form#uploadFile input[value=Upload]').click();
     });
         
     it("should upload License", function () {
       return browser
         .elementByXPath('//td[normalize-space(text())="License"]/following-sibling::td/input').click()
-        .waitForElementByCss('form#uploadFile input[type=file]').sendKeys("/_Work/test.docx")
+        .waitForElementByCss('form#uploadFile input[type=file]').sendKeys(__dirname + "/files/test.docx")
         .elementByCss('form#uploadFile input[value=Upload]').click();
     });
     
     it("should upload Direct Deposit", function () {
       return browser
         .elementByXPath('//td[normalize-space(text())="Direct Deposit"]/following-sibling::td/input').click()
-        .waitForElementByCss('form#uploadFile input[type=file]').sendKeys("/_Work/test.docx")
+        .waitForElementByCss('form#uploadFile input[type=file]').sendKeys(__dirname + "/files/test.docx")
         .elementByCss('form#uploadFile input[value=Upload]').click();
     });
 

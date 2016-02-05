@@ -71,5 +71,6 @@ it("should close popup", function  () {
 
 it("should log out", function  () {
   return browser
+    .frame()
     .elementByLinkText('Logout').click();
 });
