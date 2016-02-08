@@ -50,7 +50,7 @@ describe("Producer scenario, Person Party", function() {
 
     it("should log in as user '067600492'", function  () {
       return browser
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("067600492.username"))
+        .waitForElementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("067600492.username"))
         .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("067600492.password"))
         .elementByCss('form[name=loginForm] input[type=submit]').click();
     });

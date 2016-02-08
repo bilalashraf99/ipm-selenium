@@ -34,10 +34,10 @@ describe("Producer Scenario, Person Party - Session 2", function() {
   });
  
   after(function () {
-    /*return browser
+    return browser
       .frame()
       .elementByLinkText('Logout').click()
-      .quit();*/
+      .quit();
   });
 
 // TC4

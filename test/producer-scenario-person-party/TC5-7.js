@@ -35,10 +35,10 @@ describe("Producer scenario, Person Party", function() {
   });
  
   after(function () {
-//    return browser
-//      .frame()
-//      .elementByLinkText('Logout').click()
-//      .quit();
+    return browser
+      .frame()
+      .elementByLinkText('Logout').click()
+      .quit();
   });
 
 // TC5

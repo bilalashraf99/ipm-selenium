@@ -79,7 +79,7 @@ describe("Producer scenario, Person party", function() {
         .elementById('EmailDs').type('abc@gmail.com')
         .elementById('FirstNameDsStart').type('Thomas')
         .elementById('LastNameDsStart').type('Feola')
-        .elementById('combobox6').type('ifs bank')
+        .elementByCss('#combobox6 option[value="IFS Bank"]').click()
         .elementById('createButton').click();
     });
     

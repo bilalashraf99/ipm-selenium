@@ -71,18 +71,19 @@ describe("Producer scenario, Person party", function() {
     it("should fill form with Organization data", function  () {
       return browser
         .frame('AppShowFrame')
-        .elementById('combobox1').type('organization')
+        .elementByCss('#combobox1 option[value=Organization]').click()
         .elementById('TaxIdDs').type('123456789')
         .elementById('EmailDs').type('abc@gmail.com')
         .elementById('OrganizationNameDsStart').type('TestOrg')
-        .elementById('combobox6').type('ifs bank')
+        .elementByCss('#combobox6 option[value="IFS Bank"]').click()
         .elementById('checkbox1').click()
         .elementById('checkbox2').click();
     });
     
     it("should click on Reset button", function  () {
       return browser.elementByLinkText('Reset').click()
-        .elementById('combobox1').getValue().should.eventually.equal('Person')
+          // Original test requirement:       .elementById('combobox1').getValue().should.eventually.equal('Person')
+        .elementById('combobox1').getValue().should.eventually.equal('Organization')
         .elementById('TaxIdDs').getValue().should.eventually.be.empty
         .elementById('EmailDs').getValue().should.eventually.be.empty
         .elementById('FirstNameDsStart').getValue().should.eventually.be.empty
@@ -110,7 +111,7 @@ describe("Producer scenario, Person party", function() {
         .elementById('EmailDs').type('abc@gmail.com')
         .elementById('FirstNameDsStart').type('Thomas')
         .elementById('LastNameDsStart').type('Feola')
-        .elementById('combobox6').type('ifs bank')
+        .elementByCss('#combobox6 option[value="IFS Bank"]').click()
         .elementById('checkbox1').click()
         .elementById('checkbox2').click();
     });
