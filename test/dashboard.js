@@ -27,8 +27,8 @@ describe("Dashboard", function () {
   
   after(function () {
     return browser
-//      .frame()
-//      .elementByLinkText('Logout').click()
+      //.frame()
+      //.elementByLinkText('Logout').click()
       .quit();
   });
   
@@ -38,5 +38,8 @@ describe("Dashboard", function () {
   importTest("My Widgets - Advanced search", './dashboard/TC15');
   importTest("View / Edit Documents", './dashboard/TC7');
   importTest("View / Edit Notes", './dashboard/TC8');
+  importTest("Reassign Case", './dashboard/TC9');
+  importTest("Send Email", './dashboard/TC10');
+  importTest("Close Case", './dashboard/TC6');
 
 });
