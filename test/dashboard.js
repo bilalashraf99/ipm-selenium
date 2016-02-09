@@ -36,7 +36,7 @@ describe("Dashboard", function () {
   //importTest("My Widgets - Basic search", './dashboard/TC14');
   //importTest("My Widgets - Advanced search", './dashboard/TC15');
   importTest('./dashboard/TC7');
-  //importTest("View / Edit Notes", './dashboard/TC8');
+  importTest('./dashboard/TC8');
   //importTest("Reassign Case", './dashboard/TC9');
   //importTest("Send Email", './dashboard/TC10');
   importTest('./dashboard/TC6');
