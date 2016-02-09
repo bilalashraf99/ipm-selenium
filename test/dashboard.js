@@ -1,15 +1,13 @@
 var common = require("./common");
 var browser = common.browser;
 
-function importTest(name, path) {
-  describe(name, function () {
-    require(path);
-  });
+function importTest(path) {
+  require(path);
 }
 
 describe("Dashboard", function () {
-  this.timeout(30000);
-  
+  this.timeout(60000);
+
   var config = common.config;
   
   before(function () {
@@ -22,7 +20,8 @@ describe("Dashboard", function () {
     });
 
     return browser
-      .init(config.get("environment"));
+      .init(config.get("environment"))
+      .setWindowSize(1200, 1000);
   });
   
   after(function () {
@@ -32,14 +31,14 @@ describe("Dashboard", function () {
       .quit();
   });
   
-  importTest("My Tasks widget - Basic search", './dashboard/TC12');
-  importTest("My Tasks widget - Advanced search", './dashboard/TC13');
-  importTest("My Widgets - Basic search", './dashboard/TC14');
-  importTest("My Widgets - Advanced search", './dashboard/TC15');
-  importTest("View / Edit Documents", './dashboard/TC7');
-  importTest("View / Edit Notes", './dashboard/TC8');
-  importTest("Reassign Case", './dashboard/TC9');
-  importTest("Send Email", './dashboard/TC10');
-  importTest("Close Case", './dashboard/TC6');
+  //importTest("My Tasks widget - Basic search", './dashboard/TC12');
+  //importTest("My Tasks widget - Advanced search", './dashboard/TC13');
+  //importTest("My Widgets - Basic search", './dashboard/TC14');
+  //importTest("My Widgets - Advanced search", './dashboard/TC15');
+  //importTest('./dashboard/TC7');
+  //importTest("View / Edit Notes", './dashboard/TC8');
+  //importTest("Reassign Case", './dashboard/TC9');
+  //importTest("Send Email", './dashboard/TC10');
+  importTest('./dashboard/TC6');
 
 });
