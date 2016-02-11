@@ -1,68 +1,25 @@
-var config = require('nconf');
-config.file({file: './test/config.json'});
-
-var chai = require("chai");
-var chaiAsPromised = require("chai-as-promised");
-chai.use(chaiAsPromised);
-chai.should();
-
-var wd = require('wd');
+var common = require("../common");
+var config = common.config;
+var browser = common.browser;
 
 var url = config.get("ipm.url");
 var dcmUrl = config.get("dcm.url");
 
-describe("Analyst Scenario", function() {
-  this.timeout(30000);
-  
-  var browser;
-   
-  before(function () {
-    // enables chai assertion chaining
-    chaiAsPromised.transferPromiseness = wd.transferPromiseness;
-    
-    browser = wd.promiseChainRemote(config.get("remote")); 
-
-    // optional extra logging
-    browser.on('status', function(info) {
-      console.log(info);
-    });
-    browser.on('command', function(meth, path, data) {
-      console.log(' > ' + meth, path, data || '');
-    });
+it("Create instance - Org", function () {
 
     return browser
-      .init(config.get("environment"));
-  });
- 
-  after(function () {
-    return browser
-      .frame()
-      .elementByLinkText('Logout').click()
-      .quit();
-  });
+        // Load login page
+        .get(url)
 
-// TC10
-  describe("Create instance - Org", function() {
-  
-    it("should load login page", function () {
-      return browser
-        .get(url);
-    });
-
-    it("should enter username/password and submit", function  () {
-      return browser
+        // Log in as user 'AnalystUser1'
         .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
         .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click();
-    });
-    
-    it("should click OnBoarding link in My Widgets section", function  () {
-      return browser
-        .waitForElementByLinkText('OnBoarding', 10000).click();
-    });
-    
-    it("should fill form with Organization data and submit", function  () {
-      return browser
+        .elementByCss('form[name=loginForm] input[type=submit]').click()
+
+        // Click OnBoarding link in My Widgets section
+        .waitForElementByLinkText('OnBoarding', 10000).click()
+
+        // Fill form with Organization data and submit
         .frame('AppShowFrame')
         .elementByCss('#combobox1 option[value=Organization]').click()
         .elementById('TaxIdDs').type('020258767')
@@ -73,49 +30,34 @@ describe("Analyst Scenario", function() {
         .elementById('checkbox2').click()
         .elementById('createButton').click()
         .sleep(2000)
-        .waitForElementByCss('.x-message-box .x-header-text').text().should.eventually.not.contain('error');
-    });
-    
-    it("should click on My Worksteps tab", function  () {
-      var workstepXPath = '//div[normalize-space(text())="Enter Data & Review Docs"]/parent::td/following-sibling::td//a[normalize-space(text())="AnalystUser1"]';
-      return browser
+        //.waitForElementByCss('.x-message-box .x-header-text').text().should.eventually.not.contain('error')
+
+        // Click on My Worksteps tab
         .frame()
         .elementByLinkText('My Worksteps', 10000).click()
-        .waitForElementByXPath(workstepXPath);
-    });
-    
-    it("should click on Dashboard tab and verify new case among search results", function  () {
-      return browser
+        .waitForElementByXPath('//div[normalize-space(text())="Enter Data & Review Docs"]/parent::td/following-sibling::td//a[normalize-space(text())="AnalystUser1"]')
+
+        // Click on Dashboard tab and verify new case among search results
         .elementByLinkText('Dashboard', 10000).click()
         .waitForElementByCss('#case_SearchResultsDefault a[data-qtip=Refresh]').click()
-        .waitForElementByXPath("//*[@id='case_SearchResultsDefault']/descendant::td[@data-qtip='067600492']/parent::tr/child::td[@data-qtip='John Blumberg']/parent::tr/child::td[@data-qtip='ACTIVATED']", 10000);
-    });
-    
-    it("should logout", function  () {
-      return browser
-        .elementByLinkText('Logout').click();
-    });
-    
-    it("should load DCM login page", function () {
-      return browser
-        .get(dcmUrl);
-    });
-    
-    it("should log in as user 'sa'", function  () {
-      return browser
+        .waitForElementByXPath("//*[@id='case_SearchResultsDefault']/descendant::td[@data-qtip='020258767']/parent::tr/child::td[@data-qtip='Willis Of New Hampshire Inc']/parent::tr/child::td[@data-qtip='ACTIVATED']", 10000)
+
+        // Log out
+        .elementByLinkText('Logout').click()
+
+        // Load DCM login page
+        .get(dcmUrl)
+
+        // Log in as user 'sa'
         .elementByCss('form[name=LoginForm] input[name=LOGINNAME]').type(config.get("sa.username"))
         .elementByCss('form[name=LoginForm] input[name=PASSWORD]').type(config.get("sa.password"))
-        .elementByCss('form[name=LoginForm] input[type=SUBMIT]').click();
-    });
-    
-    it("should navigate to Party -> Party", function  () {
-      return browser
-        .frame("navbar")
-        .waitForElementByCss('a#Party').click();
-    });
+        .elementByCss('form[name=LoginForm] input[type=SUBMIT]').click()
 
-    it("should perform search on Tax ID", function  () {
-      return browser
+        // Navigate to Party -> Party
+        .frame("navbar")
+        .waitForElementByCss('a#Party').click()
+
+        // Perform search on Tax ID
         .frame()
         .frame("container")
         .frame("cacheframe0")
@@ -125,16 +67,11 @@ describe("Analyst Scenario", function() {
         .elementByLinkText('Search').click()
         .waitForElementByCss('table[name=Grid_Person_Main] tbody td:nth-child(2)').text().should.become('Willis Of New Hampshire Inc')
         .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(4)').text().should.become('***-**-8767')
-        .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(10)').text().should.become('solnsengg@gmail.com');
-    });
-    
-    it("should logout", function  () {
-      return browser
+        .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(10)').text().should.become('solnsengg@gmail.com')
+
+        // Log out
         .frame()
         .frame("navbar")
         .elementByLinkText('Logout').click();
-    });
 
-  });
-  
 });

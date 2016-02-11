@@ -34,5 +34,9 @@ describe("Analyst Scenario", function () {
     importTest('./analyst-scenario/TC4');
     importTest('./analyst-scenario/TC8');
     importTest('./analyst-scenario/TC9');
+    importTest('./analyst-scenario/TC10');
+    importTest('./analyst-scenario/TC11');
+    importTest('./analyst-scenario/TC12');
+    importTest('./analyst-scenario/TC13');
 
 });

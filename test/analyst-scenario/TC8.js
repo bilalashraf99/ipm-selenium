@@ -23,7 +23,7 @@ it("Select Upline - Person", function() {
     };
 
     return browser
-    // Load login page
+        // Load login page
         .get(url).windowHandle().then(function(handle) {
             mainWindow = handle;
         })
