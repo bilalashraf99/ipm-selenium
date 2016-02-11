@@ -26,13 +26,18 @@ describe("Producer scenario, Org party", function () {
 
     after(function () {
         return browser
-        //.frame()
-        //.elementByLinkText('Logout').click()
             .quit();
     });
 
     importTest('./producer-scenario-org-party/TC1');
     importTest('./producer-scenario-org-party/TC2');
+    importTest('./producer-scenario-org-party/TC3');
+    importTest('./producer-scenario-org-party/TC7');
+    importTest('./producer-scenario-org-party/TC8');
+    importTest('./producer-scenario-org-party/TC9');
+    importTest('./producer-scenario-org-party/TC10');
+    importTest('./producer-scenario-org-party/TC14');
+    importTest('./producer-scenario-org-party/TC15');
     importTest('./producer-scenario-org-party/TC16');
 
 });
