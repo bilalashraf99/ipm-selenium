@@ -48,7 +48,7 @@ it("Send response to BIG and NIPR and complete flow", function() {
 
     return browser
         // Load login page
-        .get(url).windowHandle()
+        .get(url)
 
         // Log in as user 'AnalystUser1'
         .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
