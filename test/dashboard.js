@@ -31,14 +31,14 @@ describe("Dashboard", function () {
       .quit();
   });
   
-  //importTest("My Tasks widget - Basic search", './dashboard/TC12');
-  //importTest("My Tasks widget - Advanced search", './dashboard/TC13');
-  //importTest("My Widgets - Basic search", './dashboard/TC14');
-  //importTest("My Widgets - Advanced search", './dashboard/TC15');
+  importTest('./dashboard/TC12');
+  importTest('./dashboard/TC13');
+  importTest('./dashboard/TC14');
+  importTest('./dashboard/TC15');
   importTest('./dashboard/TC7');
   importTest('./dashboard/TC8');
-  //importTest("Reassign Case", './dashboard/TC9');
-  //importTest("Send Email", './dashboard/TC10');
+  importTest('./dashboard/TC9');
+  importTest('./dashboard/TC10');
   importTest('./dashboard/TC6');
 
 });

@@ -4,25 +4,21 @@ var browser = common.browser;
 
 var url = config.get("ipm.url");
 
-it("should load login page", function () {
-    return browser
-        .get(url);
-});
+it("Send Email", function () {
 
-it("should log in as user 'AnalystUser1'", function () {
     return browser
+        // Load login page
+        .get(url)
+
+        // Log in as user 'AnalystUser1'
         .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
         .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click();
-});
+        .elementByCss('form[name=loginForm] input[type=submit]').click()
 
-it("should click Search icon in My Widgets", function () {
-    return browser
-        .waitForElementByCss('input#case_search').click();
-});
+        // Click Search icon in My Widgets
+        .waitForElementByCss('input#case_search').click()
 
-it("should open Send Adhoc Email popup and verify contents", function () {
-    return browser
+        // Open Send Adhoc Email popup and verify contents
         .waitForElementByXPath('//*[@id="case_SearchResults"]//td/div[normalize-space(text())="ACTIVATED"]/parent::td/preceding-sibling::td//input').click()
         .elementByCss('#caseSearchDiv input#case_email').click()
         .waitForElementByCss('iframe#actionHandler')
@@ -37,33 +33,26 @@ it("should open Send Adhoc Email popup and verify contents", function () {
         .elementByCss('#templateNames option[value="OnBoardingCloseCaseDeclination.docx"]')
         .elementByCss('#templateNames option[value="OnBoardingWelcome.docx"]')
         .elementByCss('#templateNames option[value="OnBoardingDataEntryWithUserCredentials.docx"]').click()
-        .elementByCss('input#letterKeySelected').getValue().should.become("OB_LK_0008");
-});
+        .elementByCss('input#letterKeySelected').getValue().should.become("OB_LK_0008")
 
-it("should Reset", function () {
-    return browser
+        // Reset
         .elementByLinkText('Reset').click()
         .elementByCss('#templateNames option[value="-1"]').isSelected().should.eventually.be.true
         .elementByCss('input#letterKeySelected').getValue().should.eventually.be.empty
-        .elementByCss('textarea#descriptionSelected').getValue().should.eventually.be.empty;
-});
+        .elementByCss('textarea#descriptionSelected').getValue().should.eventually.be.empty
 
-it("should select 'OnBoardingRejection.docx' and Create", function () {
-    return browser
+        // Select 'OnBoardingRejection.docx' and Create
         .elementByCss('#templateNames option[value="OnBoardingRejection.docx"]').click()
         .elementByCss('input#letterKeySelected').getValue().should.become("OB_LK_0001")
-        .elementByCss('input#createButton').click();
-});
+        .elementByCss('input#createButton').click()
 
-it("verify tasks in 'My Worksteps'", function () {
-    return browser
+        // Verify tasks in 'My Worksteps'
         .frame()
-        .elementByLinkText('My Worksteps').click();
-    // Verify
-});
+        .elementByLinkText('My Worksteps').click()
+        // Verify!
 
-it("should log out", function () {
-    return browser
+        // Log out
         .frame()
         .elementByLinkText('Logout').click();
+
 });
