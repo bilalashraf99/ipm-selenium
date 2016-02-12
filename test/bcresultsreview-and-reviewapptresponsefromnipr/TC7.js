@@ -6,7 +6,7 @@ var browser = common.browser;
 
 var url = config.get("ipm.url");
 
-it("Create instance", function () {
+it("Create instance (2)", function () {
 
     return browser
     // Load login page

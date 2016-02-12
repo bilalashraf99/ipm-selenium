@@ -4,7 +4,7 @@ var browser = common.browser;
 
 var url = config.get("ipm.url");
 
-it("Select Upline", function() {
+it("Select Upline (2)", function() {
 
     var mainWindow;
 

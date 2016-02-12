@@ -4,7 +4,7 @@ var browser = common.browser;
 
 var url = config.get("ipm.url");
 
-it("EnterDataAndReviewDocs", function() {
+it("EnterDataAndReviewDocs (2)", function() {
 
     var clickAll = function(elements) {
         var results = [];
