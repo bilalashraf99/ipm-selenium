@@ -4,7 +4,7 @@ var browser = common.browser;
 
 var url = config.get("ipm.url");
 
-it("Validate fields in Initiate New Onboarding - Producer", function () {
+it("Validate fields in Initiate New OB – Organization", function () {
 
     return browser
         // Load login page
@@ -18,20 +18,21 @@ it("Validate fields in Initiate New Onboarding - Producer", function () {
         // Click OnBoarding link in My Widgets section
         .waitForElementByLinkText('OnBoarding', 10000).click()
 
-        // Submit an empty form
+        // Select Organization in Party type dropdown
         .frame('AppShowFrame')
+        .elementById('combobox1').type('organization')
+
+        // Submit an empty form
         .waitForElementById('createButton', 15000).click()
         .elementByXPath("//*[@id='TaxIdDs_div']/ancestor::td[1]/following-sibling::td[1]").text().should.become('*required')
         .elementByXPath("//*[@id='EmailDs_div']/ancestor::td[1]/following-sibling::td[1]").text().should.become('*required')
-        .elementByXPath("//*[@id='FirstNameDsStart_div']/ancestor::td[1]/following-sibling::td[1]").text().should.become('*required')
-        .elementByXPath("//*[@id='LastNameDsStart_div']/ancestor::td[1]/following-sibling::td[1]").text().should.become('*required')
+        .elementByXPath("//*[@id='OrganizationNameDsStart_div']/ancestor::td[1]/following-sibling::td[1]").text().should.become('*required')
         .elementByXPath("//*[@id='combobox6_div']/ancestor::td[1]/following-sibling::td[1]").text().should.become('* required')
 
         // Fill form with invalid data and submit
         .elementById('TaxIdDs').type('123456789')
         .elementById('EmailDs').type('abc@gmail.com')
-        .elementById('FirstNameDsStart').type('Thomas')
-        .elementById('LastNameDsStart').type('Feola')
+        .elementById('OrganizationNameDsStart').type('TestOrg')
         .elementByCss('#combobox6 option[value="IFS Bank"]').click()
         .elementById('createButton').click()
 

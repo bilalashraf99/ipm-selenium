@@ -11,14 +11,6 @@ describe("Producer scenario, Org party", function () {
     var config = common.config;
 
     before(function () {
-        // optional extra logging
-        browser.on('status', function(info) {
-            console.log(info);
-        });
-        browser.on('command', function(meth, path, data) {
-            console.log(' > ' + meth, path, data || '');
-        });
-
         return browser
             .init(config.get("environment"))
             .setWindowSize(1200, 1000);
@@ -32,6 +24,7 @@ describe("Producer scenario, Org party", function () {
     importTest('./producer-scenario-org-party/TC1');
     importTest('./producer-scenario-org-party/TC2');
     importTest('./producer-scenario-org-party/TC3');
+    //importTest('./producer-scenario-org-party/TC5');
     importTest('./producer-scenario-org-party/TC7');
     importTest('./producer-scenario-org-party/TC8');
     importTest('./producer-scenario-org-party/TC9');

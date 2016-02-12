@@ -11,14 +11,6 @@ describe("Analyst Scenario", function () {
     var config = common.config;
 
     before(function () {
-        // optional extra logging
-        browser.on('status', function(info) {
-            console.log(info);
-        });
-        browser.on('command', function(meth, path, data) {
-            console.log(' > ' + meth, path, data || '');
-        });
-
         return browser
             .init(config.get("environment"))
             .setWindowSize(1200, 1000);

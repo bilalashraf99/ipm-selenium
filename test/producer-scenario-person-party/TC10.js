@@ -1,141 +1,84 @@
-var config = require('nconf');
-config.file({file: './test/config.json'});
-
-var chai = require("chai");
-var chaiAsPromised = require("chai-as-promised");
-chai.use(chaiAsPromised);
-chai.should();
-
-var wd = require('wd');
+var common = require("../common");
+var config = common.config;
+var browser = common.browser;
 
 var url = config.get("ipm.url");
 
-describe("Producer scenario, Person Party", function() {
-  this.timeout(30000);
-  
-  var browser;
-   
-  before(function () {
-    // enables chai assertion chaining
-    chaiAsPromised.transferPromiseness = wd.transferPromiseness;
-    
-    browser = wd.promiseChainRemote(config.get("remote")); 
+it("Approval - View producer information and Approval - Accept / Reject sections and perform Fix action", function() {
 
-    // optional extra logging
-    browser.on('status', function(info) {
-      console.log(info);
-    });
-    browser.on('command', function(meth, path, data) {
-      console.log(' > ' + meth, path, data || '');
-    });
+    var approvalXPath = "//*[@id='SearchResults']/descendant::td[@data-qtip='067600492']/parent::tr/child::td[@data-qtip='John Blumberg']/parent::tr/descendant::a[normalize-space(text())='Approval']";
+
+    var nested = function(e) {
+        return browser
+            .elementByCss('#SearchResults a[data-qtip="Next Page"]:not(.x-btn-disabled)').then(function(ref){
+                return ref.click()
+                    .waitForElementByXPath(approvalXPath)
+                    .catch(nested);
+            });
+    };
 
     return browser
-      .init(config.get("environment"));
-  });
- 
-  after(function () {
-    return browser
-      .frame()
-      .elementByLinkText('Logout').click()
-      .quit();
-  });
+        // Load login page
+        .get(url)
 
-// TC10
-  describe("Approval - View producer information and Approval - Accept / Reject sections and perform Fix action", function() {
-  
-    it("should load login page", function () {
-      return browser
-        .get(url);
-    });
-
-    it("should log in as user 'AnalystUser1'", function  () {
-      return browser
+        // Log in as user 'AnalystUser1'
         .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
         .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click();
-    });
-    
-    it("should click on new Approval task among search results", function  () {
-      var approvalXPath = "//*[@id='SearchResults']/descendant::td[@data-qtip='067600492']/parent::tr/child::td[@data-qtip='John Blumberg']/parent::tr/descendant::a[normalize-space(text())='Approval']";
-      var nested = function(e) {
-        return browser
-          .elementByCss('#SearchResults a[data-qtip="Next Page"]:not(.x-btn-disabled)').then(function(ref){
-            return ref.click()
-              .waitForElementByXPath(approvalXPath)
-              .catch(nested);
-          });
-      }        
-      return browser
+        .elementByCss('form[name=loginForm] input[type=submit]').click()
+
+        // Click on new Approval task among search results
         .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
         .elementByCss('input#searchText').type('067600492')
         .elementByCss('input#search').click()
         .elementByXPath('//span[normalize-space(text())="CREATED DATE"]').click().click()
         .waitForElementByXPath(approvalXPath)
-        .catch(nested).click();
-    });
-    
-    it("should verify Basic Information section", function  () {
-      return browser
+        .catch(nested).click()
+
+        // Verify Basic Information section
         .frame('TaskShowFrame')
         .elementByCss('input[name=textField2]:disabled').getValue().should.become('Mr')
         .elementByCss('input[name=MiddleNameDs]').getValue().should.become('Abc')
         .elementByCss('input[name=GenderDs]').getValue().should.become('Male')
         .elementByCss('input[name=GenderDs]').getValue().should.become('Male')
         .elementByCss('input[name=textField7]').getValue().should.become('John Abc Blumberg')
-    });
-    
-    it("should verify Contact Information section", function  () {
-      return browser
-        .elementByCss('input[name=EmailDs1]:disabled').getValue().should.eventually.not.be.empty;
-    });
-    
-    it("should verify Errors and Omissions section", function  () {
-      return browser
+
+        // Verify Contact Information section
+        .elementByCss('input[name=EmailDs1]:disabled').getValue().should.eventually.not.be.empty
+
+        // Verify Errors and Omissions section
         .elementByCss('input[name=CarrierDs]:disabled').getValue().should.become('CarrierOne')
         .elementByCss('input[name=PolicyNumberDs]:disabled').getValue().should.become('1111')
         .elementByCss('input[name=ClaimLimitDs]:disabled').getValue().should.become('2222')
         .elementByCss('input[name=PolicyLimitDs]:disabled').getValue().should.become('3333')
-        .elementByCss('input[name=CertificateNumberDs]:disabled').getValue().should.become('certificate123');
-    });
-    
-    it("should verify Payment Accounts section", function  () {
-      return browser
-        .elementByCss('input[name=AccountHolderNameDs1]:disabled').getValue().should.become('John Blumberg');
-    });
-    
-    it("should verify Continuing Education section", function  () {
-      return browser
-        .elementByCss('#continuingEducationContentDiv').text().should.eventually.include('IA Index Training');
-    });
-    
-    it("should verify Legal Questions section", function  () {
-      return browser
+        .elementByCss('input[name=CertificateNumberDs]:disabled').getValue().should.become('certificate123')
+
+        // Verify Payment Accounts section
+        .elementByCss('input[name=AccountHolderNameDs1]:disabled').getValue().should.become('John Blumberg')
+
+        // Verify Continuing Education section
+        .elementByCss('#continuingEducationContentDiv').text().should.eventually.include('IA Index Training')
+
+        // Verify Legal Questions section
         .elementsByCss('#legalQuestionsContentDiv input[value=Yes]').then(function(elements) {
-          var result = new Array();
+          var result = [];
           for (var i=0; i<elements.length; i++) {
             result.push(elements[i].isSelected());
           }
           return Promise.all(result);
-        });
-    });
-    
-    it("should verify Appointment Requests section", function  () {
-       return browser
+        })
+
+        // Verify Appointment Requests section
         .elementByXPath('//div[@id="appointmentRequestsContentDiv"]//td[contains(text(), "Michigan")]/following-sibling::td//input[@type="checkbox"]')
         .isSelected()
-        .elementByCss('div[name=unlicensedStateContentDiv]').text().should.become('Alaska');
-    });
-    
-    it("should verify Upload Documents section", function  () {
-      // No such section!
-    });
-    
-    it("should verify E-Sign Documents section", function  () {
-       // No such section!     
-    });
-    
-    it("should reject and accept sections", function() {
-      return browser
+        .elementByCss('div[name=unlicensedStateContentDiv]').text().should.become('Alaska')
+
+        // Verify Upload Documents section
+        // No such section!
+
+        // Verify E-Sign Documents section
+        // No such section!
+
+        // Reject and accept sections
         .elementByCss('textarea#StatusReason_EDUD_BasicInfoApproval').type('Rejected by AnalystUser')
         .elementByCss('div#basicInfoContentDiv').elementByLinkText('Reject').click()
         .elementByCss('textarea#StatusReason_EDUD_ContactInfoApproval').type('Rejected by AnalystUser')
@@ -153,8 +96,10 @@ describe("Producer scenario, Person Party", function() {
         // TODO: Upload Documents section?
         // TODO: E-Sign Documents section?
         .elementByCss('textarea[name=txaCurrComm]').type('Some sections are rejected by Analyst')
-        .elementByCss('input[type=submit][value=Fix]').click();
-    });
-  });
-  
+        .elementByCss('input[type=submit][value=Fix]').click()
+
+        // Log out
+        .frame()
+        .elementByLinkText('Logout').click();
+
 });

@@ -4,7 +4,7 @@ var browser = common.browser;
 
 var url = config.get("ipm.url");
 
-it("Select Upline - Org", function() {
+it("Select Upline", function () {
 
     var mainWindow;
 
@@ -23,12 +23,12 @@ it("Select Upline - Org", function() {
     };
 
     return browser
-        // Click 'Select Parent Position'
         .windowHandle().then(function(handle) {
             mainWindow = handle;
         })
+        // Click 'Select Parent Position'
         .elementById('childPositionTextBox').type("ChildPosition1")
-        .waitForElementById('SelectParentPosition').click()
+        .elementById('SelectParentPosition').click()
         .then(selectChildWindow)
         .waitForElementById('firstNameTextBox', 5000).type("F")
         .elementByCss('input[value=Search]').click()
@@ -41,19 +41,15 @@ it("Select Upline - Org", function() {
 
         // Verify dynamic fields
         .elementByCss('input[name=newOrExistingPositionRadio][value="Existing Position"]').click()
-        .waitForElementByCss('a#SelectChildPosition').click()
-        .then(selectChildWindow)
-        .elementById('searchByOrganizationRadio').click()
-        .elementById('organizationNameTextBox').type("o")
-        .elementByCss('input[value=Search]').click()
-        .waitForElementById('selectUplineSearchTable', 5000)
-        .elementByXPath('//td[normalize-space(text())="ORG1"]/preceding-sibling::td/input').click()
+        .waitForElementByCss('a#SelectChildPosition').isVisible()
+        .elementByCss('input[name=newOrExistingPositionRadio][value="New Position"]').click()
+        .elementByCss('select#positionTypeCombo option[value=Producer]').click()
+        //        .elementByCss('input#childPositionTextBox:not([readonly])').keys("ChildPosition1")
         .elementByCss('input[value=Submit]').click()
-        .then(selectMainWindow)
-        .frame('TaskShowFrame')
-        .waitForElementById('childPositionTextBox').getValue().should.become("ChildPosition1")
+        .sleep(3000)
 
-        // Click on Submit button
-        .elementByCss('input[value=Submit]').click();
+        // Log out
+        .frame()
+        .elementByLinkText('Logout').click();
 
 });
