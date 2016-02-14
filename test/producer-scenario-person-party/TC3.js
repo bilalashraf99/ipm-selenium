@@ -34,8 +34,7 @@ it("Reset data on Initiate New Producer Onboarding", function () {
 
         // Click on Reset button
         .elementByLinkText('Reset').click()
-        // Original test requirement:       .elementById('combobox1').getValue().should.eventually.equal('Person')
-        .elementById('combobox1').getValue().should.eventually.equal('Organization')
+        .elementById('combobox1').getValue().should.eventually.equal('Person')
         .elementById('TaxIdDs').getValue().should.eventually.be.empty
         .elementById('EmailDs').getValue().should.eventually.be.empty
         .elementById('FirstNameDsStart').getValue().should.eventually.be.empty

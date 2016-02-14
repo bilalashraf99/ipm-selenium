@@ -4,7 +4,7 @@ var browser = common.browser;
 
 var url = config.get("ipm.url");
 
-it("Validate fields in Initiate New OB - Organization", function () {
+it("Validate fields in Initiate New Onboarding - Organization", function () {
 
     return browser
         // Load login page
