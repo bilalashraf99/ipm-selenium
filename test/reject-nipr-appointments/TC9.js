@@ -1,34 +1,44 @@
-require("date-utils");
 var common = require("../common");
 var config = common.config;
 var browser = common.browser;
 
 var url = config.get("ipm.url");
 
-it("EnterDataAndReviewDocs - Person party", function() {
-
-    var clickAll = function(elements) {
-        var results = [];
-        for (var i = 0; i < elements.length; i++) {
-            results.push(elements[i].click());
-        }
-        return Promise.all(results);
-    };
+it("Initiate OB process and EnterDataAndReviewDocs - Org party", function () {
 
     return browser
         // Load login page
         .get(url)
 
-        // Log in as user 'AnalystUser1' {
+        // Log in as user 'AnalystUser1'
         .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
         .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
         .elementByCss('form[name=loginForm] input[type=submit]').click()
 
-        // Click on EnterDataAndReviewDocs
-        .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
-        .elementByCss('input#searchText').type('067600492')
-        .elementByCss('input#search').click()
-        .waitForElementByLinkText('EnterDataAndReviewDocs', 10000).click()
+        // Click OnBoarding link in My Widgets section
+        .waitForElementByLinkText('OnBoarding', 10000).click()
+
+        // Fill form with Organization data and submit
+        .frame('AppShowFrame')
+        .elementByCss('#combobox1 option[value=Organization]').click()
+        .elementById('TaxIdDs').type('020258767')
+        .elementById('EmailDs').type('solnsengg@gmail.com')
+        .elementById('OrganizationNameDsStart').type('Willis Of New Hampshire Inc')
+        .elementByCss('#combobox6 option[value=LLIC]').click()
+        .elementById('checkbox2').click()
+        .elementById('createButton').click()
+        .sleep(5000)
+        //.waitForElementByCss('.x-message-box .x-header-text').text().should.eventually.not.contain('error')
+
+        // Click on Dashboard tab and verify new case among search results
+        .frame()
+        .elementByLinkText('Dashboard', 10000).click()
+        .waitForElementByCss('#case_SearchResultsDefault a[data-qtip=Refresh]').click()
+        .waitForElementByXPath("//*[@id='case_SearchResultsDefault']/descendant::td[@data-qtip='020258767']/parent::tr/child::td[@data-qtip='Willis Of New Hampshire Inc']/parent::tr/child::td[@data-qtip='ACTIVATED']", 10000)
+
+        // Verify task in My Tasks section
+        .elementByCss('#basicSearchDiv input#search').click()
+        .waitForElementByXPath("//*[@id='SearchResults']//a[normalize-space(text())='EnterDataAndReviewDocs']").click()
 
         // Expand all sections
         .frame('TaskShowFrame')
@@ -42,12 +52,11 @@ it("EnterDataAndReviewDocs - Person party", function() {
         .elementById('CertificateNumberDs').type('certificate123')
 
         // Fill in Payment Accounts form data
-        .elementById('AccountHolderNameDs1').type('John Blumberg')
+        .elementById('AccountHolderNameDs1').type('Willis')
         .elementById('BankNameDs1').type('Bank1')
         .elementById('BankRoutingNumberDs1').type('1111')
         .elementById('AccountNumberDs1').type('2222')
         .elementById('date_Time3_id-inputEl').type(Date.today().toFormat(format))
-        .elementById('date_Time5_id-inputEl').type(Date.tomorrow().toFormat(format))
 
         // Fill in Legal Questions form data
         .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=Yes]').then(clickAll)

@@ -24,6 +24,9 @@ it("Select Upline", function() {
 
     return browser
         // Click 'Select Parent Position'
+        .windowHandle().then(function(handle) {
+            mainWindow = handle;
+        })
         .frame('TaskShowFrame')
         .waitForElementById('SelectParentPosition').click()
         .then(selectChildWindow)
