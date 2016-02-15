@@ -3,7 +3,7 @@ var path = require("path");
 var config = common.config;
 var browser = common.browser;
 
-var url = config.get("ipm.url");
+var url = common.bpmPortalUrl;
 
 it("View / Edit Documents", function () {
 

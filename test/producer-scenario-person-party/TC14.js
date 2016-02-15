@@ -1,50 +1,12 @@
-var wd = require('wd');
-var http = require('http');
-var fs = require('fs');
-
 var common = require("../common");
 var config = common.config;
 var browser = common.browser;
 
-var url = config.get("ipm.url");
+var url = common.bpmPortalUrl;
 
 it("Send response to BIG and NIPR and complete flow", function() {
 
     var instanceId;
-
-    wd.addAsyncMethod('postJson', function(fileName, path) {
-        var cb = wd.findCallback(arguments);
-
-        fs.readFile(fileName, 'utf-8', function(err, data) {
-            if (err) {
-                console.log("Error reading file!");
-            }
-            if (data) {
-                var options = {
-                    hostname: config.get("server.hostname"),
-                    port: config.get("server.port"),
-                    path: path,
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Content-Length': Buffer.byteLength(data.length)
-                    }
-                };
-
-                var postRequest = http.request(options, function(res) {
-                    res.on('data', function (chunk) {
-                        console.log('Response: ' + chunk);
-                        cb();
-                    });
-                });
-
-                console.log(instanceId);
-                data.replace('<InstanceID>', instanceId);
-                postRequest.write(data);
-                postRequest.end();
-            }
-        });
-    });
 
     return browser
         // Load login page
@@ -62,13 +24,13 @@ it("Send response to BIG and NIPR and complete flow", function() {
         .waitForElementByXPath('//div[contains(text(), "067600492 ")]').text().then(function(result) {
             var len = result.length;
             instanceId = result.substring(len-5, len-1);
-        })
+        }).sleep(1000)
 
         // Send response for BIG
-        .postJson('BIG_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse')
+        .postJson('BIG_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse', instanceId)
 
         // Send response for NIPR
-        .postJson('NIPR_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse')
+        .postJson('NIPR_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse', instanceId)
 
         // Click on Dashboard tab and verify search results
         .sleep(2000)

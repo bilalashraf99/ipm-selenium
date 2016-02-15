@@ -1,10 +1,8 @@
-var wd = require('wd');
-
 var common = require("../common");
 var config = common.config;
 var browser = common.browser;
 
-var url = config.get("ipm.url");
+var url = common.bpmPortalUrl;
 
 it("Create instance (2)", function () {
 

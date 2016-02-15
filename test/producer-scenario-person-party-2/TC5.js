@@ -3,7 +3,7 @@ var common = require("../common");
 var config = common.config;
 var browser = common.browser;
 
-var url = config.get("ipm.url");
+var url = common.bpmPortalUrl;
 
 it("Initiate new OnBoarding instance", function () {
 

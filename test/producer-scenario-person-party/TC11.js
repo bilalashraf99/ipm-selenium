@@ -2,7 +2,7 @@ var common = require("../common");
 var config = common.config;
 var browser = common.browser;
 
-var url = config.get("ipm.url");
+var url = common.bpmPortalUrl;
 
 it("Enter data - View approver comments and modify data after Fix action", function () {
 
