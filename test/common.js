@@ -20,5 +20,8 @@ browser.on('command', function(meth, path, data) {
     console.log(' > ' + meth, path, data || '');
 });
 
+var obAdminUrl = "http://" + config.get("server.hostname") + ":" + config.get("ipm.port") + config.get("ipm.ob.admin.path");
+
 exports.config = config;
 exports.browser = browser;
+exports.obAdminUrl = obAdminUrl;
