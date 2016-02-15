@@ -26,5 +26,6 @@ describe("Reject NIPR appointments", function () {
     importTest('./reject-nipr-appointments/TC3');
     importTest('./reject-nipr-appointments/TC9');
     importTest('./reject-nipr-appointments/TC10');
+    importTest('./reject-nipr-appointments/TC12');
 
 });
