@@ -7,6 +7,10 @@ var dcmUrl = config.get("dcm.url");
 
 it("Create instance - Org", function () {
 
+    var selectSubpageFrame0 = function() {
+        return browser.frame().frame("container").frame("cacheframe0").frame("subpage");
+    };
+
     return browser
         // Load login page
         .get(url)
@@ -58,16 +62,14 @@ it("Create instance - Org", function () {
         .waitForElementByCss('a#Party').click()
 
         // Perform search on Tax ID
-        .frame()
-        .frame("container")
-        .frame("cacheframe0")
-        .frame("subpage")
-        .waitForElementByCss('#Search_Person_Main_primary_display_div select').type('search for org')
-        .waitForElementByCss('input[name=Field_Person_Main_TaxID_Search_Value]').type('020258767')
+        .then(selectSubpageFrame0)
+        .waitForElementByCss('#Search_Person_Main_primary_display_div select option[value=Menu_Party_Org]').click()
+        .then(selectSubpageFrame0)
+        .waitForElementByCss('input[name=Field_Org_Main_TaxID_Search_Value]').type('020258767')
         .elementByLinkText('Search').click()
-        .waitForElementByCss('table[name=Grid_Person_Main] tbody td:nth-child(2)').text().should.become('Willis Of New Hampshire Inc')
-        .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(4)').text().should.become('***-**-8767')
-        .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(10)').text().should.become('solnsengg@gmail.com')
+        .waitForElementByCss('table[name=Grid_Org_Main] tbody td:nth-child(2)').text().should.become('WILLIS OF NEW HAMPSHIRE INC')
+        .elementByCss('table[name=Grid_Org_Main] tbody td:nth-child(4)').text().should.become('020258767')
+        .elementByCss('table[name=Grid_Org_Main] tbody td:nth-child(11)').text().should.become('solnsengg@gmail.com')
 
         // Log out
         .frame()
