@@ -8,8 +8,11 @@
         "browserstack.ie.enablePopups": true,
         "enablePersistentHover": true
     },
-    "server.hostname": "172.30.89.191",
+    "server.hostname": "172.30.71.15",
     "server.port": 18793,
+    "ipm.port": 18793,
+    "ipm.ob.admin.path": "/sbm/BizSolo/ProducerOnBoardingAdmin/Start.jsp",
+    "ipm.login.path": "/sbm/bpmportal/login.jsp",
     "ipm.url": "http://172.30.89.191:18793/sbm/bpmportal/login.jsp",
     "dcm.url": "http://172.30.89.191:9080/DMS/dmswelcome.jsp",
     "analyst.username": "AnalystUser1",
