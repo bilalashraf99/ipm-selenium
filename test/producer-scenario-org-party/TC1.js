@@ -42,11 +42,11 @@ it("Initiate New Onboarding process", function() {
         // Click OnBoarding link in My Widgets section
         .waitForElementByLinkText('OnBoarding', 10000).click()
 
-        // Fill form with user data and submit
+        // Fill form with organization data and submit
         .frame('AppShowFrame')
         .waitForElementByCss('select#combobox1 option[value=Organization]').click()
         .elementById('TaxIdDs').type('020258767')
-        .elementById('EmailDs').type('solnsengg@gmail')
+        .elementById('EmailDs').type('solnsengg@gmail.com')
         .elementById('OrganizationNameDsStart').type('Willis Of New Hampshire Inc')
         .elementByCss('select#combobox6 option[value="IFS Bank"]').click()
         .elementById('createButton').click()
