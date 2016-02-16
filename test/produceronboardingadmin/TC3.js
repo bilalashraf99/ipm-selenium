@@ -7,13 +7,15 @@ it("Modify Payment Account types, Payment Balance Type", function () {
         // Select OnBoarding / PaymentAccount.Type and verify
         .waitForElementByCss('#applicationListCombo option[value=OnBoarding]').click()
         .waitForElementByCss('#entityNameCombo option[value="PaymentAccount.Type"]').click()
+        .sleep(1000)
         .waitForElementByCss('table[role=presentation] tr').click().text().should.eventually.include('{"Default Payment":"DefaultPayment","Escrow":"Escrow"}')
 
         // Modify the entity value and verify
         .elementByCss('textarea#EValue').clear().type('{"Default Payment":"DefaultPayment","Escrow":"Escrow","PAName":"PAValue"}')
         .elementByCss('input[value=Update]').click()
         .acceptAlert()
-        .waitForElementByLinkText('OK').click().sleep(1000)
+        .waitForElementByLinkText('OK').click()
+        .sleep(1000)
         .waitForElementByCss('table[role=presentation] tr').text().should.eventually.include('{"Default Payment":"DefaultPayment","Escrow":"Escrow","PAName":"PAValue"}')
 
         // Select PaymentBalance from Entity Name dropdown

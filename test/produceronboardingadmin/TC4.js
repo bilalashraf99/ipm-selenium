@@ -10,6 +10,7 @@ it("Modify Contact type and Contact usage", function () {
         // Select OnBoarding / CONTACT_USAGE and verify
         .waitForElementByCss('#applicationListCombo option[value=OnBoarding]').click()
         .waitForElementByCss('#entityNameCombo option[value="CONTACT_USAGE"]').click()
+        .sleep(1000)
         .waitForElementByCss('table[role=presentation] tr').click().text()
         .should.eventually.include('{"Licensing Information":"LICENSINGINFO","Statements":"STATEMENTS","Mailing":"MAILING"' +
             ',"Settlement":"SETTLEMENT","Retired Primary":"RETIREDPRIMARY","Marketing Information":"MARKETINGINFO","Primary":"PRIMARY"}')
@@ -20,7 +21,8 @@ it("Modify Contact type and Contact usage", function () {
             ',"Settlement":"SETTLEMENT","Retired Primary":"RETIREDPRIMARY","Marketing Information":"MARKETINGINFO","Primary":"PRIMARY","UsageName1":"UsageVal1"}')
         .elementByCss('input[value=Update]').click()
         .acceptAlert()
-        .waitForElementByLinkText('OK').click().sleep(1000)
+        .waitForElementByLinkText('OK').click()
+        .sleep(1000)
         .waitForElementByCss('table[role=presentation] tr').text()
         .should.eventually.include('{"Licensing Information":"LICENSINGINFO","Statements":"STATEMENTS","Mailing":"MAILING"' +
             ',"Settlement":"SETTLEMENT","Retired Primary":"RETIREDPRIMARY","Marketing Information":"MARKETINGINFO","Primary":"PRIMARY","UsageName1":"UsageVal1"}')
@@ -38,7 +40,8 @@ it("Modify Contact type and Contact usage", function () {
             ',"Work Address":"WORK","Location Mailing Address":"LOCMAILING","CTName1":"CTVal1"}')
         .elementByCss('input[value=Update]').click()
         .acceptAlert()
-        .waitForElementByLinkText('OK').click().sleep(1000)
+        .waitForElementByLinkText('OK').click()
+        .sleep(1000)
         .waitForElementByCss('table[role=presentation] tr').text()
         .should.eventually.include('{"Residence Address":"HOME","Summer Residence Address":"SUMMERHOME","Location Physical Address":"LOCPHYSICAL"' +
             ',"Work Address":"WORK","Location Mailing Address":"LOCMAILING","CTName1":"CTVal1"}')

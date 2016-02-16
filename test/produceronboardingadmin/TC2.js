@@ -10,13 +10,15 @@ it("Modify Legal Questions", function () {
         // Select OnBoarding / Legal Questions and verify
         .waitForElementByCss('#applicationListCombo option[value=OnBoarding]').click()
         .waitForElementByCss('#entityNameCombo option[value="Legal Questions"]').click()
+        .sleep(1000)
         .waitForElementsByCss('table[role=presentation] tr').should.eventually.have.length(10)
 
         // Delete first row
         .elementByCss('table[role=presentation] tr').click()
         .elementByCss('input[value=Delete]').click()
         .acceptAlert()
-        .waitForElementByLinkText('OK').click().sleep(1000)
+        .waitForElementByLinkText('OK').click()
+        .sleep(1000)
         .waitForElementsByCss('table[role=presentation] tr').should.eventually.have.length(9)
 
         // Add new Legal Question
@@ -24,7 +26,8 @@ it("Modify Legal Questions", function () {
         .elementByCss('input#DOrder').type("1")
         .elementByCss('input[value=Add]').click()
         .acceptAlert()
-        .waitForElementByLinkText('OK').click().sleep(1000)
+        .waitForElementByLinkText('OK').click()
+        .sleep(1000)
         .waitForElementsByCss('table[role=presentation] tr').should.eventually.have.length(10)
 
         // Reset form
