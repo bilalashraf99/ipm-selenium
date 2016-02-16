@@ -25,5 +25,10 @@ describe("ProducerOnBoardingAdmin", function () {
     importTest('./produceronboardingadmin/TC2');
     importTest('./produceronboardingadmin/TC3');
     importTest('./produceronboardingadmin/TC4');
+    importTest('./produceronboardingadmin/TC6');
+    importTest('./produceronboardingadmin/TC7');
+    importTest('./produceronboardingadmin/TC10');
+    importTest('./produceronboardingadmin/TC11');
+    importTest('./produceronboardingadmin/TC14');
 
 });
