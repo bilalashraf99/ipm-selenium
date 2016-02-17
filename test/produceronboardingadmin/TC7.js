@@ -5,7 +5,7 @@ var browser = common.browser;
 
 var url = common.bpmPortalUrl;
 
-it("Create OB instance for person party", function () {
+it("Verify modifications for person party and Submit form", function () {
 
     var format = 'MMM DD, YYYY 00:00';
 

@@ -8,7 +8,7 @@
         "browserstack.ie.enablePopups": true,
         "enablePersistentHover": true
     },
-    "server.hostname": "172.30.71.15",
+    "server.hostname": "172.30.89.191",
     "ipm.port": 18793,
     "ipm.ob.admin.path": "/sbm/BizSolo/ProducerOnBoardingAdmin/Start.jsp",
     "ipm.login.path": "/sbm/bpmportal/login.jsp",
