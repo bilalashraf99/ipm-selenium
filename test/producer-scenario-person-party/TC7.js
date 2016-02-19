@@ -75,27 +75,31 @@ it("Enter data - Add producer information and Submit form", function () {
         .elementByCss('div#unlicensedStateContentDiv').text().should.become('Alabama')
         .elementByCss('select#unclicensedStateDD').getValue().should.become('Select One')
 
-        // Add additional unlicenesed state
-        .elementByCss('select#unclicensedStateDD').type('Alaska')
-        .elementByCss('input#addUnlicensedStateButton').click()
-        .elementByCss('div#unlicensedStateContentDiv').text()
-        .should.eventually.include('Alabama').and.should.eventually.include('Alaska')
-        .elementByCss('select#unclicensedStateDD').getValue().should.become('Select One')
+        //// Add additional unlicenesed state
+        //.elementByCss('select#unclicensedStateDD').type('Alaska')
+        //.elementByCss('input#addUnlicensedStateButton').click()
+        //.elementByCss('div#unlicensedStateContentDiv').text()
+        //.should.eventually.include('Alabama').and.should.eventually.include('Alaska')
+        //.elementByCss('select#unclicensedStateDD').getValue().should.become('Select One')
 
         // Click 'X' sign beside 'Alabama'
         .elementByXPath('//span[normalize-space(text())="Alabama"]/following-sibling::span').click()
         .elementByCss('div#unlicensedStateContentDiv').text()
         .should.eventually.not.include('Alabama')
 
-        // NOT IN STEPS: Click Payment Accounts nav link
-        .elementByCss('#paymentAccountsNavLink').click()
+        // Collapse all sections
+        .elementByLinkText('Collapse All').click()
 
         // Click on Submit button
         .elementByCss('input[value=Submit]').click().sleep(10000)
         .frame('TaskShowFrame')
-        .waitForElementByCss('div#unlicensedStateNamesDiv').should.eventually.include('Alaska')
+        .sleep(2000)
+        .waitForElementByCss('div#unlicensedStateNamesDiv').text().should.eventually.include('Alaska')
 
         // Click on Complete button
-        .elementByCss('input[value=Complete]').click();
+        .elementByCss('input[value=Complete]').click()
+
+        .frame('TaskShowFrame')
+        .waitForElementByCss('div#midPanel').text().should.eventually.include('Upload Documents and ESignature');
 
 });
