@@ -27,10 +27,10 @@ it("Send response to BIG and NIPR and complete flow - Person", function() {
         }).sleep(1000)
 
         // Send response for BIG
-        .postJson('BIG_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse', instanceId)
+        .postJson('files/BIG_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse', instanceId)
 
         // Send response for NIPR
-        .postJson('NIPR_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse', instanceId)
+        .postJson('files/NIPR_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse', instanceId)
 
         // Click on Dashboard tab and verify search results
         .sleep(2000)
