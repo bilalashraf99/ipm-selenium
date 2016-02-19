@@ -6,7 +6,7 @@ function importTest(path) {
 }
 
 describe("Producer scenario, Person party", function () {
-    this.timeout(60000);
+    this.timeout(120000);
 
     var config = common.config;
 
@@ -28,6 +28,8 @@ describe("Producer scenario, Person party", function () {
     importTest('./producer-scenario-person-party/TC5');
     importTest('./producer-scenario-person-party/TC6');
     importTest('./producer-scenario-person-party/TC7');
+    importTest('./producer-scenario-person-party/TC8');
+    importTest('./producer-scenario-person-party/TC9');
     importTest('./producer-scenario-person-party/TC10');
     importTest('./producer-scenario-person-party/TC11');
     importTest('./producer-scenario-person-party/TC12');

@@ -59,7 +59,16 @@ wd.addAsyncMethod('postJson', function (fileName, path, instanceId) {
     });
 });
 
+var clickAll = function(elements) {
+    var result = [];
+    for (var i = 0; i < elements.length; i++) {
+        result.push(elements[i].click());
+    }
+    return Promise.all(result);
+};
+
 exports.config = config;
 exports.browser = browser;
 exports.bpmPortalUrl = bpmPortalUrl;
 exports.obAdminUrl = obAdminUrl;
+exports.clickAll = clickAll;
