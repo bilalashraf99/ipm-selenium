@@ -91,13 +91,14 @@ it("Enter data - Add producer information and Submit form", function () {
         .elementByLinkText('Collapse All').click()
 
         // Click on Submit button
-        .elementByCss('input[value=Submit]').click().sleep(10000)
-        .frame('TaskShowFrame')
-        .sleep(2000)
-        .waitForElementByCss('div#unlicensedStateNamesDiv').text().should.eventually.include('Alaska')
-
-        // Click on Complete button
-        .elementByCss('input[value=Complete]').click()
+        .elementByCss('input[value=Submit]').click()
+        .sleep(10000)
+        //.frame('TaskShowFrame')
+        //.sleep(2000)
+        //.waitForElementByCss('div#unlicensedStateNamesDiv').text().should.eventually.include('Alaska')
+        //
+        //// Click on Complete button
+        //.elementByCss('input[value=Complete]').click()
 
         .frame('TaskShowFrame')
         .waitForElementByCss('div#midPanel').text().should.eventually.include('Upload Documents and ESignature');

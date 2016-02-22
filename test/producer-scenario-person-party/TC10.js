@@ -39,7 +39,6 @@ it("Approval - View producer information and Approval - Accept / Reject sections
         .elementByCss('input[name=textField2]:disabled').getValue().should.become('Mr')
         .elementByCss('input[name=MiddleNameDs]').getValue().should.become('Abc')
         .elementByCss('input[name=GenderDs]').getValue().should.become('Male')
-        .elementByCss('input[name=GenderDs]').getValue().should.become('Male')
         .elementByCss('input[name=textField7]').getValue().should.become('John Abc Blumberg')
 
         // Verify Contact Information section
@@ -80,19 +79,19 @@ it("Approval - View producer information and Approval - Accept / Reject sections
 
         // Reject and accept sections
         .elementByCss('textarea#StatusReason_EDUD_BasicInfoApproval').type('Rejected by AnalystUser')
-        .elementByCss('div#basicInfoContentDiv').elementByLinkText('Reject').click()
+        .elementByCss('div#basicInfoContentDiv').elementByLinkText('>', 'Reject').click()
         .elementByCss('textarea#StatusReason_EDUD_ContactInfoApproval').type('Rejected by AnalystUser')
-        .elementByCss('div#contactInformationContentDiv').elementByLinkText('Reject').click()      
+        .elementByCss('div#contactInformationContentDiv').elementByLinkText('>', 'Reject').click()
         .elementByCss('textarea#StatusReason_EDUD_EnOApproval').type('Accepted by AnalystUser')
-        .elementByCss('div#errorsAndOmissionsContentDiv').elementByLinkText('Accept').click()
+        .elementByCss('div#errorsAndOmissionsContentDiv').elementByLinkText('>', 'Accept').click()
         .elementByCss('textarea#StatusReason_EDUD_PaymentInfoApproval').type('Accepted by AnalystUser')
-        .elementByCss('div#paymentAccountsContentDiv').elementByLinkText('Accept').click() 
+        .elementByCss('div#paymentAccountsContentDiv').elementByLinkText('>', 'Accept').click()
         .elementByCss('textarea#StatusReason_EDUD_ContEdApproval').type('Accepted by AnalystUser')
-        .elementByCss('div#continuingEducationContentDiv').elementByLinkText('Accept').click()
+        .elementByCss('div#continuingEducationContentDiv').elementByLinkText('>', 'Accept').click()
         .elementByCss('textarea#StatusReason_EDUD_LeagalQuesApproval').type('Accepted by AnalystUser')
-        .elementByCss('div#legalQuestionsContentDiv').elementByLinkText('Accept').click() 
+        .elementByCss('div#legalQuestionsContentDiv').elementByLinkText('>', 'Accept').click()
         .elementByCss('textarea#StatusReason_EDUD_AppApproval').type('Accepted by AnalystUser')
-        .elementByCss('div#appointmentRequestsContentDiv').elementByLinkText('Accept').click() 
+        .elementByCss('div#appointmentRequestsContentDiv').elementByLinkText('>', 'Accept').click()
         // TODO: Upload Documents section?
         // TODO: E-Sign Documents section?
         .elementByCss('textarea[name=txaCurrComm]').type('Some sections are rejected by Analyst')
