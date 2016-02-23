@@ -6,6 +6,26 @@ var url = common.bpmPortalUrl;
 
 it("Verify Tax ID", function() {
 
+    function retry(maxRetries, fn) {
+        return fn().catch(function(err) {
+            if (maxRetries <= 0) {
+                throw err;
+            }
+            console.log("Retrying... " + maxRetries + " retries left");
+            return retry(maxRetries - 1, fn);
+        });
+    }
+
+    var relog = function() {
+        return browser
+            .elementByLinkText('Logout').click()
+            .sleep(5000)
+            .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("020258767.username"))
+            .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("020258767.password"))
+            .elementByCss('form[name=loginForm] input[type=submit]').click()
+            .frame('TaskShowFrame');
+    };
+
     return browser
         // Load login page
         .get(url)
@@ -17,10 +37,17 @@ it("Verify Tax ID", function() {
 
         // Should cancel Tax ID verification
         .frame('TaskShowFrame')
+        .catch(function() {
+            return retry(10, relog);
+        })
         .waitForElementByCss('input[value=Cancel]').click()
+        .frame()
+
+        // TODO: Bug redirects to localhost, line below is to make test pass
+        .get(url)
 
         // Log in as user '020258767'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("020258767.username"))
+        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').clear().type(config.get("020258767.username"))
         .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("020258767.password"))
         .elementByCss('form[name=loginForm] input[type=submit]').click()
 

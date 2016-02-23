@@ -44,14 +44,17 @@ it("Initiate New Onboarding process", function() {
 
         // Fill form with organization data and submit
         .frame('AppShowFrame')
+        .sleep(1000) // Fix for issue where fields get cleared while driver is typing
         .waitForElementByCss('select#combobox1 option[value=Organization]').click()
         .elementById('TaxIdDs').type('020258767')
         .elementById('EmailDs').type('solnsengg@gmail.com')
         .elementById('OrganizationNameDsStart').type('Willis Of New Hampshire Inc')
         .elementByCss('select#combobox6 option[value="IFS Bank"]').click()
         .elementById('createButton').click()
-        .sleep(2000)
-        //.waitForElementByCss('.x-message-box .x-header-text').text().should.eventually.not.contain('error')
+        .waitForElementById('dashboardPanel', 5000)
+
+        // WAIT
+        .sleep(8000)
 
         // Click on Dashboard tab and check new case among search results
         .frame()
