@@ -20,6 +20,7 @@ it("Create instance", function () {
 
         // Fill form with Organization data and submit
         .frame('AppShowFrame')
+        .sleep(1000) // Fix for issue where fields get cleared while driver is typing
         .elementByCss('#combobox1 option[value=Organization]').click()
         .elementById('TaxIdDs').type('020258767')
         .elementById('EmailDs').type('solnsengg@gmail.com')
@@ -28,8 +29,10 @@ it("Create instance", function () {
         .elementById('checkbox1').click()
         .elementById('checkbox2').click()
         .elementById('createButton').click()
-        .sleep(2000)
-        .waitForElementByCss('.x-message-box .x-header-text').text().should.eventually.not.contain('error')
+        .waitForElementById('dashboardPanel', 5000)
+
+        // Wait
+        .sleep(8000)
 
         // Click on My Worksteps tab
         .frame()

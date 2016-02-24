@@ -37,7 +37,7 @@ it("EnterDataAndReviewDocs", function() {
         .elementByCss('#StateDs1 option[value=CA]').click()
         .elementById('ZipDs1').type('1111')
         .elementById('PhoneDs1').type('2222')
-        .elementById('EmailDs1').type('solnsengg@gmail.com')
+        .elementById('EmailDs1').clear().type('solnsengg@gmail.com')
 
         // Fill in Errors and Omissions form data
         .elementById('errorsAndOmissionsHeader').click()
@@ -62,7 +62,7 @@ it("EnterDataAndReviewDocs", function() {
 
         // Fill in Appointment Requests form data
         .elementById('appointmentRequestsHeader').click()
-        .elementByXPath('//div[@id="licensesBODsDiv"]//td[contains(text(), "Connecticut - Non-Resident Producer")]/following::input[1]').click()
+        //.elementByXPath('//div[@id="licensesBODsDiv"]//td[contains(text(), "Connecticut - Non-Resident Producer")]/following::input[1]').click()
 
         // Fill in Upload Documents form data
         .elementById('uploadDocumentsHeader').click()
@@ -76,6 +76,10 @@ it("EnterDataAndReviewDocs", function() {
 
         // Click on Submit button
         .elementByCss('input[value=Submit]').click()
+        .sleep(10000)
+
+        // Validate Up-line screen
+        .frame('TaskShowFrame')
         .waitForElementByCss('div#midPanelHeader').text().should.become('Select Up-line');
 
 });
