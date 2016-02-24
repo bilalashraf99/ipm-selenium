@@ -6,6 +6,8 @@ var url = common.bpmPortalUrl;
 
 it("Initiate OB process and EnterDataAndReviewDocs - Org party", function () {
 
+    var format = 'MMM DD, YYYY 00:00';
+
     return browser
         // Load login page
         .get(url)
@@ -59,16 +61,16 @@ it("Initiate OB process and EnterDataAndReviewDocs - Org party", function () {
         .elementById('date_Time3_id-inputEl').type(Date.today().toFormat(format))
 
         // Fill in Legal Questions form data
-        .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=Yes]').then(clickAll)
+        .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=Yes]').then(common.clickAll)
 
         // Fill in Appointment Requests form data
-        .elementByCss('#appointmentRequestsContentDiv input[type=checkbox]:not(:checked)').then(clickAll)
+        .elementByCss('#appointmentRequestsContentDiv input[type=checkbox]:not(:checked)').then(common.clickAll)
 
         // Click Collapse All, reopen and fill Upload Documents section
         .elementByLinkText('Collapse All').click()
         .elementById('uploadDocumentsHeader').click()
-        .elementsByXPath('//div[@id="RequiredDocNamesTableDiv"]//input[@value="Yes" and not(contains(@id,"Rejected_yes"))]').then(clickAll)
-        .elementsByXPath('//div[@id="RequiredDocNamesTableDiv"]//input[contains(@id,"_Rejected_No")]').then(clickAll)
+        .elementsByXPath('//div[@id="RequiredDocNamesTableDiv"]//input[@value="Yes" and not(contains(@id,"Rejected_yes"))]').then(common.clickAll)
+        .elementsByXPath('//div[@id="RequiredDocNamesTableDiv"]//input[contains(@id,"_Rejected_No")]').then(common.clickAll)
 
         // Click Collapse All, reopen Upload Documents section and Submit
         .elementByLinkText('Collapse All').click()

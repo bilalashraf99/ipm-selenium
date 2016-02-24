@@ -1,8 +1,6 @@
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
-var url = common.bpmPortalUrl;
 
 it("Select Upline, Send response to BIG and NIPR - Org party", function() {
 
