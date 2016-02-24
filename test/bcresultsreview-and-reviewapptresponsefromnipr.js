@@ -6,7 +6,7 @@ function importTest(path) {
 }
 
 describe("BCResultsReview and ReviewApptResponseFromNIPR", function () {
-    this.timeout(60000);
+    this.timeout(120000);
 
     var config = common.config;
 
@@ -27,5 +27,7 @@ describe("BCResultsReview and ReviewApptResponseFromNIPR", function () {
     importTest('./bcresultsreview-and-reviewapptresponsefromnipr/TC7');
     importTest('./bcresultsreview-and-reviewapptresponsefromnipr/TC8');
     importTest('./bcresultsreview-and-reviewapptresponsefromnipr/TC9');
+    importTest('./bcresultsreview-and-reviewapptresponsefromnipr/TC13');
+    importTest('./bcresultsreview-and-reviewapptresponsefromnipr/TC14');
 
 });
