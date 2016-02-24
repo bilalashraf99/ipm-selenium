@@ -27,8 +27,10 @@ it("Initiate OB process - Person party", function() {
         .elementByCss('select#combobox6 option[value="LLIC"]').click()
         .elementById('checkbox2').click()
         .elementById('createButton').click()
-        .sleep(5000)
-        //.waitForElementByCss('.x-message-box .x-header-text').text().should.eventually.not.contain('error')
+        .waitForElementById('dashboardPanel', 5000)
+
+        // Wait
+        .sleep(8000)
 
         // Click on Dashboard tab
         .frame()

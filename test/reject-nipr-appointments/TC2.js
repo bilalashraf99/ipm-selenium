@@ -7,6 +7,8 @@ var url = common.bpmPortalUrl;
 
 it("EnterDataAndReviewDocs - Person party", function() {
 
+    var format = 'MMM DD, YYYY 00:00';
+
     var clickAll = function(elements) {
         var results = [];
         for (var i = 0; i < elements.length; i++) {
@@ -53,7 +55,7 @@ it("EnterDataAndReviewDocs - Person party", function() {
         .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=Yes]').then(clickAll)
 
         // Fill in Appointment Requests form data
-        .elementByCss('#appointmentRequestsContentDiv input[type=checkbox]:not(:checked)').then(clickAll)
+        .elementsByCss('#appointmentRequestsContentDiv input[type=checkbox]:not(:checked)').then(clickAll)
 
         // Click Collapse All, reopen and fill Upload Documents section
         .elementByLinkText('Collapse All').click()
@@ -65,6 +67,10 @@ it("EnterDataAndReviewDocs - Person party", function() {
         .elementByLinkText('Collapse All').click()
         .elementById('uploadDocumentsHeader').click()
         .elementByCss('input[value=Submit]').click()
+        .sleep(10000)
+
+        // Validate Up-line screen
+        .frame('TaskShowFrame')
         .waitForElementByCss('div#midPanelHeader', 5000).text().should.become('Select Up-line');
 
 });

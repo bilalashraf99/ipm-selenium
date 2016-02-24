@@ -1,8 +1,5 @@
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
-
-var url = common.bpmPortalUrl;
 
 it("Select Upline, Send response to BIG and NIPR - Person party", function() {
 
@@ -59,7 +56,10 @@ it("Select Upline, Send response to BIG and NIPR - Person party", function() {
         .postJson('files/BIG_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse', instanceId)
 
         // Send response for NIPR
-        .postJson('files/NIPR_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse', instanceId)
+        .postJson('files/NIPR_Request_FAIL.txt', '/sbm/cxfws/NIPRResponseReceiver/postNIPRResponse', instanceId)
+
+        // Wait
+        .sleep(8000)
 
         // Log out
         .frame()
