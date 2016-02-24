@@ -24,6 +24,7 @@ it("Reset data on Initiate New Producer Onboarding", function () {
 
         // Fill form with Organization data
         .frame('AppShowFrame')
+        .sleep(1000) // Fix for issue where fields get cleared while driver is typing
         .elementByCss('#combobox1 option[value=Organization]').click()
         .elementById('TaxIdDs').type('123456789')
         .elementById('EmailDs').type('abc@gmail.com')

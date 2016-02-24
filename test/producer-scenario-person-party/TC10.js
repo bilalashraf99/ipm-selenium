@@ -58,12 +58,12 @@ it("Approval - View producer information and Approval - Accept / Reject sections
         .elementByCss('#continuingEducationContentDiv').text().should.eventually.include('IA Index Training')
 
         // Verify Legal Questions section
-        .elementsByCss('#legalQuestionsContentDiv input[value=Yes]').then(function(elements) {
-          var result = [];
-          for (var i=0; i<elements.length; i++) {
-            result.push(elements[i].isSelected());
-          }
-          return Promise.all(result);
+        .elementsByCss('#legalQuestionsContentDiv input[value=Yes]').then(function (elements) {
+            var result = [];
+            for (var i = 0; i < elements.length; i++) {
+                result.push(elements[i].isSelected());
+            }
+            return Promise.all(result);
         })
 
         // Verify Appointment Requests section

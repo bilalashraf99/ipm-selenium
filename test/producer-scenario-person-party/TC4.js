@@ -58,7 +58,7 @@ it("Initiate New Onboarding process", function () {
         .elementById('createButton').click()
         .waitForElementById('dashboardPanel', 5000)
 
-        // WAIT
+        // Wait
         .sleep(8000)
 
         // Click on Dashboard tab
@@ -75,32 +75,32 @@ it("Initiate New Onboarding process", function () {
         .frame()
         .elementByLinkText('Logout').click()
 
-        //// Load DCM login page
-        //.get(dcmUrl)
-        //
-        //// Log in as user 'sa'
-        //.elementByCss('form[name=LoginForm] input[name=LOGINNAME]').type(config.get("sa.username"))
-        //.elementByCss('form[name=LoginForm] input[name=PASSWORD]').type(config.get("sa.password"))
-        //.elementByCss('form[name=LoginForm] input[type=SUBMIT]').click()
-        //
-        //// Navigate to Party -> Party
-        //.frame("navbar")
-        //.waitForElementByCss('a#Party').click()
-        //
-        //// Perform search on Tax ID
-        //.frame()
-        //.frame("container")
-        //.frame("cacheframe0")
-        //.frame("subpage")
-        //.waitForElementByCss('input[name=Field_Person_Main_TaxID_Search_Value]').type('067600492')
-        //.elementByLinkText('Search').click()
-        //.waitForElementByCss('table[name=Grid_Person_Main] tbody td:nth-child(2)').text().should.become('Blumberg')
-        //.elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(5)').text().should.become('067600492')
-        //.elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(11)').text().should.become('solnsengg@gmail.com')
-        //
-        //// Log out
-        //.frame()
-        //.frame("navbar")
-        //.elementByLinkText('Logout').click();
+        // Load DCM login page
+        .get(dcmUrl)
+
+        // Log in as user 'sa'
+        .elementByCss('form[name=LoginForm] input[name=LOGINNAME]').type(config.get("sa.username"))
+        .elementByCss('form[name=LoginForm] input[name=PASSWORD]').type(config.get("sa.password"))
+        .elementByCss('form[name=LoginForm] input[type=SUBMIT]').click()
+
+        // Navigate to Party -> Party
+        .frame("navbar")
+        .waitForElementByCss('a#Party').click()
+
+        // Perform search on Tax ID
+        .frame()
+        .frame("container")
+        .frame("cacheframe0")
+        .frame("subpage")
+        .waitForElementByCss('input[name=Field_Person_Main_TaxID_Search_Value]').type('067600492')
+        .elementByLinkText('Search').click()
+        .waitForElementByCss('table[name=Grid_Person_Main] tbody td:nth-child(2)').text().should.become('Blumberg')
+        .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(5)').text().should.become('067600492')
+        .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(11)').text().should.become('solnsengg@gmail.com')
+
+        // Log out
+        .frame()
+        .frame("navbar")
+        .elementByLinkText('Logout').click();
 
 });

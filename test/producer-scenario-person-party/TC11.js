@@ -22,7 +22,7 @@ it("Enter data - View approver comments and modify data after Fix action", funct
 
         // Expand all sections
         .frame('TaskShowFrame')
-        .elementByLinkText('Expand All').click()
+        .waitForElementByLinkText('Expand All').click()
         .elementById('basicInfoRejectReason').text().should.become('AnalystUser1 : Rejected : Rejected by AnalystUser')
         .elementById('contactInformationRejectReason').text().should.become('AnalystUser1 : Rejected : Rejected by AnalystUser')
         .elementById('errorsAndOmissionsRejectReason').text().should.become('AnalystUser1 : Accepted : Accepted by AnalystUser')
