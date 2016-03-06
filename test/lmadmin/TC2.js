@@ -7,6 +7,7 @@ it("View default letter keys", function () {
 
     return browser
         // Click on My Tasks tab
+        .frame()
         .waitForElementByLinkText('My Tasks').click()
 
         // Click on "Specify Letter Details" column
@@ -15,7 +16,7 @@ it("View default letter keys", function () {
         // Select OnBoarding from the dropdown and verify
         .frame('TaskShowFrame')
         .waitForElementByCss('select#appNamesCombo option[value=OnBoarding]').click()
-        .sleep(1000)
+        .sleep(2000)
         .waitForElementById('letterKeysForApplicationTable').text()
         .should.eventually.include("OB_LK_0001")
         .and.should.eventually.include("Data Entry Notification")
@@ -28,7 +29,7 @@ it("View default letter keys", function () {
 
         // Select AddAppointment from the dropdown and verify
         .waitForElementByCss('select#appNamesCombo option[value=AddAppointment]').click()
-        .sleep(1000)
+        .sleep(2000)
         .waitForElementById('letterKeysForApplicationTable').text()
         .should.eventually.include("ADD_AP_COMP_LK")
         .and.should.eventually.include("Appointment Initiation Notification")
@@ -36,21 +37,21 @@ it("View default letter keys", function () {
 
         // Select DisputeResolution from the dropdown and verify
         .waitForElementByCss('select#appNamesCombo option[value=DisputeResolution]').click()
-        .sleep(1000)
+        .sleep(2000)
         .waitForElementById('letterKeysForApplicationTable').text()
         .should.eventually.include("DR_ACK")
-        .and.should.eventually.include("DR_LK_004")
-        .and.should.eventually.include("DR_LK_006")
+        .and.should.eventually.include("DR_LK_0004")
+        .and.should.eventually.include("DR_LK_0006")
 
         // Select HierarchyTransfer from the dropdown and verify
         .waitForElementByCss('select#appNamesCombo option[value=HierarchyTransfer]').click()
-        .sleep(1000)
+        .sleep(2000)
         .waitForElementById('letterKeysForApplicationTable').text()
         .should.eventually.include("HT_LK_01")
 
         // Select Termination from the dropdown and verify
         .waitForElementByCss('select#appNamesCombo option[value=Termination]').click()
-        .sleep(1000)
+        .sleep(2000)
         .waitForElementById('letterKeysForApplicationTable').text()
         .should.eventually.include("TERM_COMP_LK")
         .and.should.eventually.include("TERM_INIT_LK")
@@ -58,13 +59,13 @@ it("View default letter keys", function () {
 
         // Select ExamMonitor from the dropdown and verify
         .waitForElementByCss('select#appNamesCombo option[value=ExamMonitor]').click()
-        .sleep(1000)
+        .sleep(2000)
         .waitForElementById('letterKeysForApplicationTable').text()
         .should.eventually.include("EM_LK_001")
 
         // Select ContactPointManager from the dropdown and verify
         .waitForElementByCss('select#appNamesCombo option[value=ContactPointManager]').click()
-        .sleep(1000)
+        .sleep(2000)
         .waitForElementById('letterKeysForApplicationTable').text()
         .should.eventually.include("CPM_LK")
 
