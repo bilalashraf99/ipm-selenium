@@ -4,7 +4,7 @@
   "description": "IPM UI auto-tests powered by Selenium/Node.js",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter mocha-teamcity-reporter --recursive test"
+    "test": "mocha --reporter mocha-teamcity-reporter test"
   },
   "repository": {
     "type": "git",
