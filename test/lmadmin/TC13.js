@@ -23,7 +23,7 @@ it("Add disclosure", function () {
 
         // Fill values and click Complete
         .waitForElementByCss('input[name=disclosureName]').type("NewDisclosure")
-        .elementByCss('input[name=disclosureDescription]').type("This is NewDisclosure")
+        .elementByCss('textarea[name=disclosureDescription]').type("This is NewDisclosure")
         .elementById('bizsite_completeTask_COMPLETE_LABEL_id').click()
 
         // Approve

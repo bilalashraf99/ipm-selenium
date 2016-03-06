@@ -21,7 +21,7 @@ it("Add letter attachment", function () {
         // Select letter key and verify
         .waitForElementByXPath('//td[normalize-space(text())="DR_LK_0001"]/parent::tr//input', 10000).click()
         .waitForElementByXPath('//table[@id="templatesForLetterKeyTable"]//tr/td[2][normalize-space(text()) = "20"]/parent::tr//input', 5000).click()
-        .elementById('attachmentHeaderDiv').elementByLinkText('>', 'Add').click()
+        .elementById('attachmentHeaderDiv').elementByLinkText('>', '+ Add').click()
         .sleep(500)
         .elementByCss('.x-window.x-message-box').elementByLinkText('>', 'OK').click()
 
