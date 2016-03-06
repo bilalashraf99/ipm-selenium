@@ -6,7 +6,7 @@ function importTest(path) {
 }
 
 describe("Producer Scenario, Person Party - Session 2", function () {
-    this.timeout(60000);
+    this.timeout(120000);
 
     var config = common.config;
 

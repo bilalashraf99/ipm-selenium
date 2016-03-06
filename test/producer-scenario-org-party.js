@@ -6,7 +6,7 @@ function importTest(path) {
 }
 
 describe("Producer scenario, Org party", function () {
-    this.timeout(60000);
+    this.timeout(120000);
 
     var config = common.config;
 
