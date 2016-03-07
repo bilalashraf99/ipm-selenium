@@ -56,7 +56,7 @@ it("Initiate New Onboarding process", function () {
         .elementById('LastNameDsStart').type('Blumberg')
         .elementByCss('select#combobox6 option[value="IFS Bank"]').click()
         .elementById('createButton').click()
-        .waitForElementById('dashboardPanel', 5000)
+        .waitForElementById('dashboardPanel', 100000)
 
         // Wait
         .sleep(8000)
