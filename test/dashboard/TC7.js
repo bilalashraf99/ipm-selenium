@@ -18,8 +18,7 @@ it("View / Edit Documents", function () {
 
         // Select radio button for John Blumberg under My Widgets
         .waitForElementByCss('select#case_searchField option[value=NAME]').click()
-        //.elementByCss('input#case_searchText').type("John Blumberg")
-        .elementByCss('input#case_searchText').type("Nandan162016 Katz")
+        .elementByCss('input#case_searchText').type("John Blumberg")
         .elementByCss('input#case_search').click()
         .waitForElementByXPath('//*[@id="case_SearchResults"]//td/div[normalize-space(text())="ACTIVATED"]/parent::td/preceding-sibling::td//input').click()
         .elementByCss('#searchCaseFiltersDiv input#case_document').click()

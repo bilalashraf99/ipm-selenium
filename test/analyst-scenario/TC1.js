@@ -29,8 +29,10 @@ it("Create instance - Person", function() {
         .elementByCss('input#checkbox1').click()
         .elementByCss('input#checkbox2').click()
         .elementById('createButton').click()
-        .sleep(2000)
-        //.waitForElementByCss('.x-message-box .x-header-text').text().should.eventually.not.contain('error')
+        .waitForElementById('dashboardPanel', 100000)
+
+        // Wait
+        .sleep(8000)
 
         // Click on Dashboard tab
         .frame()
@@ -40,7 +42,15 @@ it("Create instance - Person", function() {
         .waitForElementByCss('select#case_searchField option[value=TAX_ID]').click()
         .waitForElementByCss('input#case_searchText').type('067600492')
         .waitForElementByCss('input#case_search').click()
-        .waitForElementByXPath("//*[@id='case_SearchResults']/descendant::td[@data-qtip='067600492']/parent::tr/child::td[@data-qtip='John Blumberg']/parent::tr/child::td[@data-qtip='ACTIVATED']", 10000)
+        .waitForElementByXPath("//*[@id='case_SearchResults']/descendant::td[@data-qtip='067600492']/parent::tr/child::td[@data-qtip='John Blumberg']/parent::tr/child::td[@data-qtip='ACTIVATED']")
+        .catch(function() {
+            return common.retry(10, function() {
+                return browser
+                    .sleep(5000)
+                    .elementByCss('#case_SearchResults a[data-qtip=Refresh]').click()
+                    .waitForElementByXPath("//*[@id='case_SearchResults']/descendant::td[@data-qtip='067600492']/parent::tr/child::td[@data-qtip='John Blumberg']/parent::tr/child::td[@data-qtip='ACTIVATED']")
+            });
+        })
 
         // Log out
         .frame()
@@ -66,8 +76,8 @@ it("Create instance - Person", function() {
         .waitForElementByCss('input[name=Field_Person_Main_TaxID_Search_Value]').type('067600492')
         .elementByLinkText('Search').click()
         .waitForElementByCss('table[name=Grid_Person_Main] tbody td:nth-child(2)').text().should.become('Blumberg')
-        .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(5)').text().should.become('***-**-0492')
-        .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(11)').text().should.become('solnsengg@gmail.com')
+        .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(5)').text().should.become('067600492')
+        .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(12)').text().should.become('solnsengg@gmail.com')
 
         // Log out
         .frame()

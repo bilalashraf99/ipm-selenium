@@ -6,16 +6,6 @@ var url = common.bpmPortalUrl;
 
 it("Verify Tax ID", function () {
 
-    function retry(maxRetries, fn) {
-        return fn().catch(function(err) {
-            if (maxRetries <= 0) {
-                throw err;
-            }
-            console.log("Retrying... " + maxRetries + " retries left");
-            return retry(maxRetries - 1, fn);
-        });
-    }
-
     var relog = function() {
         return browser
             .elementByLinkText('Logout').click()
@@ -38,7 +28,7 @@ it("Verify Tax ID", function () {
         // Make first attempt to enter invalid Tax ID
         .frame('TaskShowFrame')
         .catch(function() {
-            return retry(10, relog);
+            return common.retry(10, relog);
         })
         .waitForElementByCss('form[name=form] input[name=Tax_Id]').type('1111')
         .elementByCss('form[name=form] input[type=submit]').click()
@@ -74,7 +64,7 @@ it("Verify Tax ID", function () {
 
         // Click on new task among search results
         .then(function () {
-            return retry(5, function () {
+            return common.retry(5, function () {
                 return browser
                     .sleep(4000)
                     .waitForElementByCss('#SearchResults a[data-qtip="Refresh"]').click()
@@ -101,7 +91,7 @@ it("Verify Tax ID", function () {
         // Click Cancel
         .frame('TaskShowFrame')
         .catch(function() {
-            return retry(10, relog);
+            return common.retry(10, relog);
         })
         .waitForElementByCss('input[value=Cancel]').click()
         .frame()

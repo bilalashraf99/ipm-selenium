@@ -70,6 +70,14 @@ it("Initiate New Onboarding process", function () {
         .waitForElementByCss('input#case_searchText').type('067600492')
         .waitForElementByCss('input#case_search').click()
         .waitForElementByXPath("//*[@id='case_SearchResults']/descendant::td[@data-qtip='067600492']/parent::tr/child::td[@data-qtip='John Blumberg']/parent::tr/child::td[@data-qtip='ACTIVATED']", 10000)
+        .catch(function() {
+            return common.retry(10, function() {
+                return browser
+                    .sleep(5000)
+                    .elementByCss('#case_SearchResults a[data-qtip=Refresh]').click()
+                    .waitForElementByXPath("//*[@id='case_SearchResults']/descendant::td[@data-qtip='067600492']/parent::tr/child::td[@data-qtip='John Blumberg']/parent::tr/child::td[@data-qtip='ACTIVATED']")
+            });
+        })
 
         // Log out
         .frame()
@@ -96,7 +104,7 @@ it("Initiate New Onboarding process", function () {
         .elementByLinkText('Search').click()
         .waitForElementByCss('table[name=Grid_Person_Main] tbody td:nth-child(2)').text().should.become('Blumberg')
         .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(5)').text().should.become('067600492')
-        .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(11)').text().should.become('solnsengg@gmail.com')
+        .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(12)').text().should.become('solnsengg@gmail.com')
 
         // Log out
         .frame()
