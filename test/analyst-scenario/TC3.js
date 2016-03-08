@@ -19,7 +19,7 @@ it("EnterDataAndReviewDocs - Enter data - Person", function() {
         .elementByCss('form[name=loginForm] input[type=submit]').click()
 
         // Search for EnterDataAndReviewDocs task
-        .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
+        .waitForElementByCss('select#searchField option[value=TAX_ID]', 5000).click()
         .elementByCss('input#searchText').type('067600492')
         .elementByCss('input#search').click()
         //.elementByXPath('//span[normalize-space(text())="CREATED DATE"]').click().click()
