@@ -25,7 +25,7 @@ it("Send Email", function () {
         .frame('actionHandler')
         .frame('adhocTask')
         .frame('AppShowFrame')
-        .elementByCss('#templateNames option[value="OnBoardingRejection.docx"]')
+        .waitForElementByCss('#templateNames option[value="OnBoardingRejection.docx"]')
         .elementByCss('#templateNames option[value="OnBoardingMissingDocNotification.docx"]')
         .elementByCss('#templateNames option[value="OnBoardingCloseCase.docx"]')
         .elementByCss('#templateNames option[value="OnBoardingDataEntry.docx"]')

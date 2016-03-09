@@ -9,14 +9,6 @@ it("EnterDataAndReviewDocs - Enter data - Person", function() {
 
     var format = 'MMM DD, YYYY 00:00';
 
-    var clickAll = function(elements) {
-        var result = [];
-        for (var i = 0; i < elements.length; i++) {
-            result.push(elements[i].click());
-        }
-        return Promise.all(result);
-    };
-
     return browser
         // Load login page
         .get(url)
@@ -27,20 +19,20 @@ it("EnterDataAndReviewDocs - Enter data - Person", function() {
         .elementByCss('form[name=loginForm] input[type=submit]').click()
 
         // Search for EnterDataAndReviewDocs task
-        .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
+        .waitForElementByCss('select#searchField option[value=TAX_ID]', 5000).click()
         .elementByCss('input#searchText').type('067600492')
         .elementByCss('input#search').click()
-        .elementByXPath('//span[normalize-space(text())="CREATED DATE"]').click().click()
-        .waitForElementByXPath("//*[@id='SearchResults']//a[normalize-space(text())='EnterDataAndReviewDocs']").click()
+        //.elementByXPath('//span[normalize-space(text())="CREATED DATE"]').click().click()
+        .waitForElementByXPath("//*[@id='SearchResults']//a[normalize-space(text())='EnterDataAndReviewDocs']", 5000).click()
 
         // Fill in Contact Information form data
         .frame('TaskShowFrame')
         .elementById('contactInformationHeader').click()
-        .elementById('Street1Ds1').type("s1")
-        .elementById('CityDs1').type("cityone")
+        .elementById('Street1Ds1').clear().type("s1")
+        .elementById('CityDs1').clear().type("cityone")
         .elementByCss('select#StateDs1 option[value=CA]').click()
-        .elementById('ZipDs1').type("1111")
-        .elementById('PhoneDs1').type("2222")
+        .elementById('ZipDs1').clear().type("1111")
+        .elementById('PhoneDs1').clear().type("2222")
         .elementById('EmailDs1').clear().type("solnsengg@gmail.com")
 
         // Fill in Errors and Omissions form data
@@ -65,12 +57,12 @@ it("EnterDataAndReviewDocs - Enter data - Person", function() {
 
         // Fill in Legal Questions form data
         .elementById('legalQuestionsHeader').click()
-        .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=No]').then(clickAll)
+        .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=No]').then(common.clickAll)
 
         // Fill in Appointment Requests form data
         .elementById('appointmentRequestsHeader').click()
-        //.elementByXPath('//div[@id="appointmentRequestsContentDiv"]//td[contains(text(), "Oregon")]/following-sibling::td//input').click()
-        .elementByXPath('//div[@id="appointmentRequestsContentDiv"]//td[contains(text(), "Michigan")]/following-sibling::td//input').click()
+        .elementByXPath('//div[@id="appointmentRequestsContentDiv"]//td[contains(text(), "Oregon")]/following-sibling::td//input').click()
+        //.elementByXPath('//div[@id="appointmentRequestsContentDiv"]//td[contains(text(), "Michigan")]/following-sibling::td//input').click()
 
         // Verify 7 of 8 steps complete
         .elementByLinkText('Collapse All').click()

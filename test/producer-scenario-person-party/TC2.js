@@ -37,7 +37,7 @@ it("Validate fields in Initiate New Onboarding - Organization", function () {
         .elementById('createButton').click()
 
         // Dismiss the popup message
-        .waitForElementByLinkText('OK', 10000).click()
+        .waitForElementByLinkText('OK', 120000).click()
 
         // Try to enter too long Tax ID
         .elementById('TaxIdDs').type('1234567890')

@@ -5,7 +5,7 @@ function importTest(path) {
     require(path);
 }
 
-describe("Dashboard", function () {
+describe("LMAdmin", function () {
     this.timeout(120000);
 
     var config = common.config;
@@ -21,14 +21,12 @@ describe("Dashboard", function () {
             .quit();
     });
 
-    importTest('./dashboard/TC12');
-    importTest('./dashboard/TC13');
-    importTest('./dashboard/TC14');
-    importTest('./dashboard/TC15');
-    importTest('./dashboard/TC7');
-    importTest('./dashboard/TC8');
-    importTest('./dashboard/TC9');
-    importTest('./dashboard/TC10');
-    importTest('./dashboard/TC6');
+    importTest('./lmadmin/TC1');
+    importTest('./lmadmin/TC2');
+    importTest('./lmadmin/TC3');
+    importTest('./lmadmin/TC4');
+    importTest('./lmadmin/TC7');
+    importTest('./lmadmin/TC10');
+    importTest('./lmadmin/TC13');
 
 });

@@ -6,7 +6,7 @@ function importTest(path) {
 }
 
 describe("Analyst Scenario", function () {
-    this.timeout(60000);
+    this.timeout(180000);
 
     var config = common.config;
 

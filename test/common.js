@@ -59,6 +59,37 @@ wd.addAsyncMethod('postJson', function (fileName, path, instanceId) {
     });
 });
 
+//wd.addPromiseChainMethod('initiatePersonBoarding', function (taxId, email, firstName, lastName, companyName, producerDataEntry) {
+//    return browser
+//        // Click on Dashboard tab
+//        .frame()
+//        .elementByLinkText('Dashboard', 10000).click()
+//
+//        // Click OnBoarding link in My Widgets section
+//        .waitForElementByLinkText('OnBoarding', 10000).click()
+//
+//        // Fill form with user data and submit
+//        .frame('AppShowFrame')
+//        .sleep(1000) // Fix for issue where fields get cleared while driver is typing
+//        .elementById('TaxIdDs').type(taxId)
+//        .elementById('EmailDs').type(email)
+//        .elementById('FirstNameDsStart').type(firstName)
+//        .elementById('LastNameDsStart').type(lastName)
+//        .elementByCss('select#combobox6 option[value="' + companyName + '"]').click()
+//        .elementById('createButton').click()
+//        .waitForElementById('dashboardPanel', 100000)
+//});
+
+var retry = function(maxRetries, fn) {
+    return fn().catch(function(err) {
+        if (maxRetries <= 0) {
+            throw err;
+        }
+        console.log("Retrying... " + maxRetries + " retries left");
+        return retry(maxRetries - 1, fn);
+    });
+};
+
 var clickAll = function(elements) {
     var result = [];
     for (var i = 0; i < elements.length; i++) {
@@ -72,3 +103,4 @@ exports.browser = browser;
 exports.bpmPortalUrl = bpmPortalUrl;
 exports.obAdminUrl = obAdminUrl;
 exports.clickAll = clickAll;
+exports.retry = retry;
