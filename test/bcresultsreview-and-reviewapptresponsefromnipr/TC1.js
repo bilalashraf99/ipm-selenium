@@ -11,9 +11,7 @@ it("Create instance", function () {
         .get(url)
 
         // Log in as user 'AnalystUser1'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('analyst')
 
         .initiateOrganizationOnboarding('208949993', 'solnsengg@gmail.com', 'WATSON FINANCIAL SERVICES INC', 'LLIC', true, false)
 

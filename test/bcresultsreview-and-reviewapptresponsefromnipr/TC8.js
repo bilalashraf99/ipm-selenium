@@ -1,27 +1,16 @@
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
 var url = common.bpmPortalUrl;
 
 it("EnterDataAndReviewDocs (2)", function() {
 
-    var clickAll = function(elements) {
-        var results = [];
-        for (var i = 0; i < elements.length; i++) {
-            results.push(elements[i].click());
-        }
-        return Promise.all(results);
-    };
-
     return browser
         // Load login page
         .get(url)
 
-        // Log in as user 'AnalystUser1' {
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        // Log in as user 'AnalystUser1'
+        .login('analyst')
 
         // Click on EnterDataAndReviewDocs
         .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
@@ -58,7 +47,7 @@ it("EnterDataAndReviewDocs (2)", function() {
 
         // Fill in Legal Questions form data
         .elementById('legalQuestionsHeader').click()
-        .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=No]').then(clickAll)
+        .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=No]').then(common.clickAll)
 
         // Fill in Appointment Requests form data
         .elementById('appointmentRequestsHeader').click()
@@ -66,8 +55,8 @@ it("EnterDataAndReviewDocs (2)", function() {
 
         // Fill in Upload Documents form data
         .elementById('uploadDocumentsHeader').click()
-        .elementsByCss('#RequiredDocNamesTableDiv tr td:nth-child(2) input[type=radio]').then(clickAll)
-        .elementsByCss('#RequiredDocNamesTableDiv tr td:nth-child(5) input[type=radio]').then(clickAll)
+        .elementsByCss('#RequiredDocNamesTableDiv tr td:nth-child(2) input[type=radio]').then(common.clickAll)
+        .elementsByCss('#RequiredDocNamesTableDiv tr td:nth-child(5) input[type=radio]').then(common.clickAll)
 
         // Click Collapse All and reopen Upload Documents section
         .elementByLinkText('Collapse All').click()

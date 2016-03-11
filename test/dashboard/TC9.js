@@ -1,5 +1,4 @@
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
 var url = common.bpmPortalUrl;
@@ -29,9 +28,7 @@ it("Reassign Case", function () {
         })
 
         // Log in as user 'ManagerUser1'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("manager.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("manager.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('manager')
 
         // Click Search icon in My Widgets
         .waitForElementByCss('input#case_search').click()

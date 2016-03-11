@@ -8,9 +8,7 @@ it("Create instance and EnterDataAndReviewDocs", function() {
         .get(url)
 
         // Log in as user 'AnalystUser1'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('analyst')
 
         .initiatePersonOnboarding('326588332', 'solnsengg@gmail.com', 'Fred', 'Sellers', 'LLIC', true, false)
 

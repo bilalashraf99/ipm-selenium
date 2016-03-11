@@ -1,6 +1,5 @@
 var common = require("../common");
 var path = require("path");
-var config = common.config;
 var browser = common.browser;
 
 var url = common.bpmPortalUrl;
@@ -12,9 +11,7 @@ it("View / Edit Documents", function () {
         .get(url)
 
         // Log in as user 'AnalystUser1'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('analyst')
 
         // Select radio button for John Blumberg under My Widgets
         .waitForElementByCss('select#case_searchField option[value=NAME]').click()

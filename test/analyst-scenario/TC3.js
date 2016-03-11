@@ -66,6 +66,7 @@ it("EnterDataAndReviewDocs - Enter data - Person", function() {
 
         // Verify 7 of 8 steps complete
         .elementByLinkText('Collapse All').click()
+        .sleep(1000)
         .elementById('headerLeftAndNavigationSummary').text().should.become("7 of 8 steps complete");
 
 });
