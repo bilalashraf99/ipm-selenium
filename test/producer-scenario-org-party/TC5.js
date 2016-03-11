@@ -1,12 +1,11 @@
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
 var url = common.bpmPortalUrl;
 
 it("Approval - View producer information and Approval - Accept / Reject sections and perform Fix action", function() {
 
-    var approvalXPath = "//*[@id='SearchResults']/descendant::td[@data-qtip='020258767']/parent::tr/child::td[@data-qtip='Willis of New Hampshire Inc']/parent::tr/descendant::a[normalize-space(text())='Approval']";
+    var approvalXPath = "//*[@id='SearchResults']/descendant::td[@data-qtip='371494996']/parent::tr/child::td[@data-qtip='Willis of New Hampshire Inc']/parent::tr/descendant::a[normalize-space(text())='Approval']";
 
     var nested = function() {
         return browser
@@ -26,21 +25,19 @@ it("Approval - View producer information and Approval - Accept / Reject sections
     };
 
     return browser
-        //// Click Logout button
-        //.frame()
-        //.elementByLinkText('Logout').click()
+        // Click Logout button
+        .frame()
+        .elementByLinkText('Logout').click()
 
         // Load login page
         .get(url)
 
         // Log in as user 'AnalystUser1'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('analyst')
 
         // Click on new Approval task among search results
         .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
-        .elementByCss('input#searchText').type('020258767')
+        .elementByCss('input#searchText').type('371494996')
         .elementByCss('input#search').click()
         .elementByXPath('//span[normalize-space(text())="CREATED DATE"]').click().click()
         .waitForElementByXPath(approvalXPath)
@@ -48,7 +45,7 @@ it("Approval - View producer information and Approval - Accept / Reject sections
 
         // Verify and accept Basic Information section
         .frame('TaskShowFrame')
-        .elementByCss('input[name=OrganizationNameDs]').getValue().should.become('Willis Of New Hampshire Inc')
+        .elementByCss('input[name=OrganizationNameDs]').getValue().should.become('National Benefits Group Llc Dba Greenway Financial')
         .elementByCss('textarea#StatusReason_EDUD_BasicInfoApproval').type('Accepted by AnalystUser')
         .elementByCss('div#basicInfoContentDiv').elementByLinkText('>', 'Accept').click()
 
@@ -69,7 +66,7 @@ it("Approval - View producer information and Approval - Accept / Reject sections
         // Verify Payment Accounts section
         .elementByCss('#EDUD_AccountTypeDs1:disabled').getValue().should.become('DefaultPayment')
         .elementByCss('#EDUD_PaymentTypeDs1:disabled').getValue().should.become('W2')
-        .elementByCss('input[name=AccountHolderNameDs1]:disabled').getValue().should.become('Willis of New Hampshire Inc')
+        .elementByCss('input[name=AccountHolderNameDs1]:disabled').getValue().should.become('National Benefits')
         .elementByCss('input[name=BankNameDs1]:disabled').getValue().should.become('Bank1')
         .elementByCss('input[name=BankRoutingNumberDs1]:disabled').getValue().should.become('1111')
         .elementByCss('input[name=AccountNumberDs1]:disabled').getValue().should.become('2222')
@@ -111,7 +108,7 @@ it("Approval - View producer information and Approval - Accept / Reject sections
 
         // Verify E-Sign Documents section
         .elementsByCss('#eSignDocumentsContentDiv input[type=checkbox]').then(verifyAllSelected)
-        .elementByCss('input[name=eSignDs]:disabled').getValue().should.become("John Blumberg")
+        .elementByCss('input[name=eSignDs]:disabled').getValue().should.become("National Benefits")
         .elementByCss('textarea#StatusReason_EDUD1_ESignApproval').type('Rejected by AnalystUser')
         .elementByCss('div#paymentAccountsContentDiv').elementByLinkText('>', 'Reject').click()
 

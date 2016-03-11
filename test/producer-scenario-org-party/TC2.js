@@ -6,23 +6,11 @@ var url = common.bpmPortalUrl;
 
 it("Verify Tax ID", function() {
 
-    function retry(maxRetries, fn) {
-        return fn().catch(function(err) {
-            if (maxRetries <= 0) {
-                throw err;
-            }
-            console.log("Retrying... " + maxRetries + " retries left");
-            return retry(maxRetries - 1, fn);
-        });
-    }
-
     var relog = function() {
         return browser
             .elementByLinkText('Logout').click()
             .sleep(5000)
-            .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("020258767.username"))
-            .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("020258767.password"))
-            .elementByCss('form[name=loginForm] input[type=submit]').click()
+            .login('371494996')
             .frame('TaskShowFrame');
     };
 
@@ -30,15 +18,13 @@ it("Verify Tax ID", function() {
         // Load login page
         .get(url)
 
-        // Log in as user '020258767'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("020258767.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("020258767.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        // Log in as user '371494996'
+        .login('371494996')
 
         // Should cancel Tax ID verification
         .frame('TaskShowFrame')
         .catch(function() {
-            return retry(10, relog);
+            return common.retry(10, relog);
         })
         .waitForElementByCss('input[value=Cancel]').click()
         .frame()
@@ -46,14 +32,12 @@ it("Verify Tax ID", function() {
         // TODO: Bug redirects to localhost, line below is to make test pass
         .get(url)
 
-        // Log in as user '020258767'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').clear().type(config.get("020258767.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("020258767.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        // Log in as user '371494996'
+        .login('371494996')
 
         // Enter valid value
         .frame('TaskShowFrame')
-        .waitForElementByCss('form[name=form] input[name=Tax_Id]').type('8767')
+        .waitForElementByCss('form[name=form] input[name=Tax_Id]').type('4996')
         .elementByCss('form[name=form] input[type=submit]').click()
         .frame('TaskShowFrame')
         .waitForElementByCss('form[name=form]').text().should.eventually.include("Welcome to Aurea's Agent OnBoarding Process")

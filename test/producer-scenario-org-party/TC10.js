@@ -21,7 +21,7 @@ it("Send response to BIG and NIPR and complete flow", function() {
         .frame()
         .elementByLinkText('My Worksteps', 10000).click()
         .waitForElementById('assignedDate').click().sleep(500).click()
-        .waitForElementByXPath('//div[contains(text(), "020258767")]').text().then(function(result) {
+        .waitForElementByXPath('//div[contains(text(), "371494996")]').text().then(function(result) {
             var len = result.length;
             instanceId = result.substring(len-5, len-1);
         }).sleep(1000)
@@ -37,9 +37,9 @@ it("Send response to BIG and NIPR and complete flow", function() {
         .frame()
         .elementByLinkText('Dashboard', 10000).click()
         .waitForElementByCss('select#case_searchField option[value=TAX_ID]').click()
-        .elementByCss('input#case_searchText').type('020258767')
+        .elementByCss('input#case_searchText').type('371494996')
         .elementByCss('input#case_search').click()
-        .waitForElementByXPath("//*[@id='case_SearchResultsDefault']/descendant::td[@data-qtip='020258767']/parent::tr/child::td[@data-qtip='Willis Of New Hampshire Inc']/parent::tr/child::td[@data-qtip='COMPLETED']", 10000)
+        .waitForElementByXPath("//*[@id='case_SearchResultsDefault']/descendant::td[@data-qtip='371494996']/parent::tr/child::td[@data-qtip='National Benefits Group Llc Dba Greenway Financial']/parent::tr/child::td[@data-qtip='COMPLETED']", 10000)
 
         // Log out
         .elementByLinkText('Logout').click();

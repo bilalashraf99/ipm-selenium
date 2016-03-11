@@ -1,12 +1,11 @@
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
 var url = common.bpmPortalUrl;
 
 it("Approval - Approve action", function() {
 
-    var approvalXPath = "//*[@id='SearchResults']/descendant::td[@data-qtip='020258767']/parent::tr/child::td[@data-qtip='Willis Of New Hampshire Inc']/parent::tr/descendant::a[normalize-space(text())='Approval']";
+    var approvalXPath = "//*[@id='SearchResults']/descendant::td[@data-qtip='371494996']/parent::tr/child::td[@data-qtip='National Benefits Group Llc Dba Greenway Financial']/parent::tr/descendant::a[normalize-space(text())='Approval']";
 
     var nested = function(e) {
         return browser
@@ -22,17 +21,14 @@ it("Approval - Approve action", function() {
         .get(url)
 
         // Log in as user 'AnalystUser1'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
-
+        .login('analyst')
 
         // Click on Approval task among search results
         .waitForElementByCss('select#searchField option[value=TAX_ID]', 5000).catch(function(e) {
             console.log(e);
             return browser.sleep(1000).waitForElementByCss('select#searchField');
         }).click()
-        .elementByCss('input#searchText').type('020258767')
+        .elementByCss('input#searchText').type('371494996')
         .elementByCss('input#search').click()
         .elementByXPath('//span[normalize-space(text())="CREATED DATE"]').click().click()
         .waitForElementByXPath(approvalXPath)
@@ -44,10 +40,10 @@ it("Approval - Approve action", function() {
         .waitForElementByCss('#errorsAndOmissionsContentDiv select#EDUD_PolicyTypeDs').getValue().should.become('Bond')
 
         // Verify updated Account Holder Name
-        .elementByCss('#paymentAccountsContentDiv input#EDUD_AccountHolderNameDs1').getValue().should.become('Willis of New Hampshire Inc')
+        .elementByCss('#paymentAccountsContentDiv input#EDUD_AccountHolderNameDs1').getValue().should.become('National Benefits Group Llc Dba Greenway Financial')
 
         // Verify updated E-sign docs section
-        .elementByCss('#eSignDocumentsContentDiv input#EDUD1_eSignDs').getValue().should.become('Willis of New Hampshire Inc')
+        .elementByCss('#eSignDocumentsContentDiv input#EDUD1_eSignDs').getValue().should.become('National Benefits Group Llc Dba Greenway Financial')
 
         // Click on Approve
         .waitForElementByCss('input[value=Approve]').click()

@@ -19,25 +19,33 @@ it("EnterDataAndReviewDocs - Submit form - Org", function() {
         .get(url)
 
         // Log in as user 'AnalystUser1' {
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
+        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').clear().type(config.get("analyst.username"))
+        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').clear().type(config.get("analyst.password"))
         .elementByCss('form[name=loginForm] input[type=submit]').click()
 
         // Click on EnterDataAndReviewDocs
-        .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
+        .waitForElementByCss('select#searchField option[value=TAX_ID]', 10000).click()
         .elementByCss('input#searchText').type('020258767')
         .elementByCss('input#search').click()
         .waitForElementByLinkText('EnterDataAndReviewDocs', 10000).click()
+        .catch(function() {
+            return common.retry(10, function() {
+                return browser
+                    .sleep(8000)
+                    .elementByCss('#SearchResults a[data-qtip=Refresh]').click()
+                    .waitForElementByLinkText('EnterDataAndReviewDocs', 10000).click();
+            });
+        })
 
         // Fill in Contact Information form data
         .frame('TaskShowFrame')
         .waitForElementById('contactInformationHeader').click()
-        .elementById('Street1Ds1').type('s1')
-        .elementById('CityDs1').type('cityone')
+        .elementById('Street1Ds1').clear().type('s1')
+        .elementById('CityDs1').clear().type('cityone')
         .elementByCss('#StateDs1 option[value=CA]').click()
-        .elementById('ZipDs1').type('1111')
-        .elementById('PhoneDs1').type('2222')
-        .elementById('EmailDs1').type('solnsengg@gmail.com')
+        .elementById('ZipDs1').clear().type('1111')
+        .elementById('PhoneDs1').clear().type('2222')
+        .elementById('EmailDs1').clear().type('solnsengg@gmail.com')
 
         // Fill in Errors and Omissions form data
         .elementById('errorsAndOmissionsHeader').click()

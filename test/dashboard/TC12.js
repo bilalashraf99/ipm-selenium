@@ -19,7 +19,7 @@ it("My Tasks widget - Basic search", function () {
         .waitForElementByCss('select#searchField option[value=TASK_NAME]').click()
         .elementByCss('input#searchText').type('Review')
         .elementByCss('input#search').click()
-        .waitForElementsByCss('div#SearchResults table[role=presentation] tr').should.eventually.have.length(4)
+        .waitForElementsByCss('div#SearchResults table[role=presentation] tr').should.eventually.have.length.of.at.least(1)
 
         // Search based on Type
         .waitForElementByCss('select#searchField option[value=TYPE]').click()

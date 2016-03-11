@@ -34,7 +34,7 @@ it("Edit Organization in DCM", function () {
         .then(selectSubpageFrame0)
         .waitForElementByCss('input[name=Field_Org_Main_TaxID_Search_Value]').type('020258767')
         .elementByLinkText('Search').click()
-        .waitForElementByCss('table[name=Grid_Org_Main] tbody td:nth-child(2)').text().should.become('Willis Of New Hampshire Inc')
+        .waitForElementByCss('table[name=Grid_Org_Main] tbody td:nth-child(2)').text().should.eventually.match(/Willis Of New Hampshire Inc/i)
         .elementByCss('table[name=Grid_Org_Main] tbody td:nth-child(4)').text().should.become('020258767')
         .elementByCss('table[name=Grid_Org_Main] tbody td:nth-child(11)').text().should.become('solnsengg@gmail.com')
 

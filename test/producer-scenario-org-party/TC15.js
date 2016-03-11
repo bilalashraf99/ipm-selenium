@@ -25,9 +25,9 @@ it("Verify organization party in DCM", function() {
         .then(selectSubpageFrame0)
         .waitForElementByCss('#Search_Person_Main_primary_display_div select option[value=Menu_Party_Org]').click()
         .then(selectSubpageFrame0)
-        .waitForElementById('Field_Org_Main_TaxID_Search_Value').type("020258767")
+        .waitForElementById('Field_Org_Main_TaxID_Search_Value').type("371494996")
         .elementByLinkText('Search').click()
-        .waitForElementByCss('table#Grid_Org_Main tbody tr').text().should.eventually.include("WILLIS OF NEW HAMPSHIRE INC")
+        .waitForElementByCss('table#Grid_Org_Main tbody tr').text().should.eventually.include("NATIONAL BENEFITS")
 
         // Verify Agreements
         .elementById('Tab_Org_Main_Agreements_link').click()

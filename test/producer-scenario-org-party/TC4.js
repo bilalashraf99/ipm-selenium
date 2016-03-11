@@ -38,7 +38,7 @@ it("Upload Documents and ESignature - Add producer information and Submit form",
         // Open E-Sign Documents section and fill data
         .elementById('eSignDocumentsHeader').click()
         .elementsByCss('#eSignDocumentsContentDiv input[type=checkbox]').then(common.clickAll)
-        .elementByCss('input#eSignDs').type("Willis")
+        .elementByCss('input#eSignDs').type("National Benefits")
 
         // Click on Submit button
         .elementByCss('input[value=Submit]').click().sleep(5000);
