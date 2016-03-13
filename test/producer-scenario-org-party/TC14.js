@@ -1,5 +1,4 @@
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
 var url = common.bpmPortalUrl;
@@ -10,10 +9,8 @@ it("Login using new onboarded organization", function() {
         // Load login page
         .get(url)
 
-        // Log in as user '020258767'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("020258767.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("020258767.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        // Log in as user '371494996'
+        .login('371494996')
 
         // Click on Search icon in My Tasks widget and verify results
         .elementByCss('input#search').click()

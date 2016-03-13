@@ -27,7 +27,7 @@ it("Enter data - Add producer information and Submit form", function() {
 
         // Verify Basic Information form data
         .elementById('basicInfoHeader').click()
-        .elementById('PartyNameDs').getValue().should.become("Willis Of New Hampshire Inc")
+        .elementById('PartyNameDs').getValue().should.become("National Benefits Group Llc Dba Greenway Financial")
 
         // Fill in Errors and Omissions form data
         .elementById('errorsAndOmissionsHeader').click()
@@ -39,7 +39,7 @@ it("Enter data - Add producer information and Submit form", function() {
 
         // Fill in Payment Accounts form data
         .elementById('paymentAccountsHeader').click()
-        .elementById('AccountHolderNameDs1').type('Willis')
+        .elementById('AccountHolderNameDs1').type('National Benefits')
         .elementById('BankNameDs1').type('Bank1')
         .elementById('BankRoutingNumberDs1').type('1111')
         .elementById('AccountNumberDs1').type('2222')

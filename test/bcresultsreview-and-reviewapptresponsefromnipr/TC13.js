@@ -1,6 +1,8 @@
 var common = require("../common");
 var browser = common.browser;
 
+var url = common.bpmPortalUrl;
+
 it("Create instance and EnterDataAndReviewDocs", function() {
 
     return browser
@@ -8,38 +10,14 @@ it("Create instance and EnterDataAndReviewDocs", function() {
         .get(url)
 
         // Log in as user 'AnalystUser1'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('analyst')
 
-        // Click OnBoarding link in My Widgets section
-        .waitForElementByLinkText('OnBoarding', 10000).click()
-
-        // Fill form with user data and submit
-        .frame('AppShowFrame')
-        .sleep(1000) // Fix for issue where fields get cleared while driver is typing
-        .elementById('TaxIdDs').type('326588332')
-        .elementById('EmailDs').type('solnsengg@gmail.com')
-        .elementById('FirstNameDsStart').type('Fred')
-        .elementById('LastNameDsStart').type('Sellers')
-        .elementByCss('select#combobox6 option[value="LLIC"]').click()
-        .elementById('checkbox1').click()
-        .elementById('checkbox2').click()
-        .elementById('createButton').click()
-        .waitForElementById('dashboardPanel', 5000)
+        .initiatePersonOnboarding('326588332', 'solnsengg@gmail.com', 'Fred', 'Sellers', 'LLIC', true, false)
 
         // WAIT
         .sleep(8000)
 
-        // Click on Dashboard tab
-        .frame()
-        .elementByLinkText('Dashboard', 10000).click()
-
-        // Verify new case among search results
-        .waitForElementByCss('select#case_searchField option[value=TAX_ID]').click()
-        .waitForElementByCss('input#case_searchText').type('326588332')
-        .waitForElementByCss('input#case_search').click()
-        .waitForElementByXPath("//*[@id='case_SearchResults']/descendant::td[@data-qtip='326588332']/parent::tr/child::td[@data-qtip='Fred Sellers']/parent::tr/child::td[@data-qtip='ACTIVATED']", 10000)
+        .verifyNewCase('326588332', 'Fred Sellers')
 
         // Click on EnterDataAndReviewDocs
         .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
@@ -52,13 +30,12 @@ it("Create instance and EnterDataAndReviewDocs", function() {
         .waitForElementByLinkText('Expand All').click()
 
         // Fill in Contact Information form data
-        .waitForElementById('contactInformationHeader').click()
         .elementById('Street1Ds1').type('s1')
         .elementById('CityDs1').type('cityone')
         .elementByCss('#StateDs1 option[value=CA]').click()
         .elementById('ZipDs1').type('1111')
         .elementById('PhoneDs1').type('2222')
-        .elementById('EmailDs1').type('solnsengg@gmail.com')
+        .elementById('EmailDs1').clear().type('solnsengg@gmail.com')
 
         // Fill in Errors and Omissions form data
         .elementById('CarrierDs').type('Carrier1')
@@ -79,7 +56,7 @@ it("Create instance and EnterDataAndReviewDocs", function() {
         .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=Yes]').then(common.clickAll)
 
         // Fill in Appointment Requests form data
-        .elementByXPath('//div[@id="licensesBODsDiv"]//td[contains(text(), "Michigan")]/following::input[1]').click()
+        .elementByXPath('//div[@id="licensesBODsDiv"]//td[contains(text(), "Minnesota")]/following::input[1]').click()
 
         // Fill in Upload Documents form data
         .elementsByCss('#RequiredDocNamesTableDiv tr td:nth-child(2) input[type=radio]').then(common.clickAll)
@@ -92,6 +69,10 @@ it("Create instance and EnterDataAndReviewDocs", function() {
 
         // Click on Submit button
         .elementByCss('input[value=Submit]').click()
+        .sleep(10000)
+
+        // Validate Up-line screen
+        .frame('TaskShowFrame')
         .waitForElementByCss('div#midPanelHeader').text().should.become('Select Up-line');
 
 });

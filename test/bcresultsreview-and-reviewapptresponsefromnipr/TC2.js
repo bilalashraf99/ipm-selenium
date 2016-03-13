@@ -25,7 +25,7 @@ it("EnterDataAndReviewDocs", function() {
 
         // Click on EnterDataAndReviewDocs
         .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
-        .elementByCss('input#searchText').type('020258767')
+        .elementByCss('input#searchText').type('208949993')
         .elementByCss('input#search').click()
         .waitForElementByLinkText('EnterDataAndReviewDocs', 10000).click()
 

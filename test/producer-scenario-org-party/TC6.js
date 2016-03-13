@@ -9,14 +9,12 @@ it("Enter data - View approver comments and modify data after Fix action", funct
     return browser
         .get(url)
 
-        // Log in as user '020258767'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').clear().type(config.get("020258767.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("020258767.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        // Log in as user '371494996'
+        .login('371494996')
 
         // Enter valid value
         .frame('TaskShowFrame')
-        .waitForElementByCss('form[name=form] input[name=Tax_Id]').type('8767')
+        .waitForElementByCss('form[name=form] input[name=Tax_Id]').type('4996')
         .elementByCss('form[name=form] input[type=submit]').click()
 
         // Expand all sections
@@ -29,7 +27,7 @@ it("Enter data - View approver comments and modify data after Fix action", funct
 
         // Verify and update Payment Account section
         .elementById('paymentAccountsRejectReason').text().should.become('AnalystUser1 : Rejected : Rejected by AnalystUser')
-        .elementByCss('#AccountHolderNameDs1').clear().type("Willis of New Hampshire Inc")
+        .elementByCss('#AccountHolderNameDs1').clear().type("National Benefits Group Llc Dba Greenway Financial")
 
         // Verify Basic Information, Contact Information, Continuing Education, Legal Questions, Appointment Requests sections
         .elementById('basicInfoRejectReason').text().should.become('AnalystUser1 : Accepted : Accepted by AnalystUser')
@@ -54,7 +52,7 @@ it("Enter data - View approver comments and modify data after Fix action", funct
 
         // Verify and update E-Sign Documents
         .elementById('eSignDocumentsRejectReason').text().should.become('AnalystUser1 : Rejected : Rejected by AnalystUser')
-        .elementById('eSignDs').clear().type("Willis of New Hampshire Inc")
+        .elementById('eSignDs').clear().type("National Benefits Group Llc Dba Greenway Financial")
 
         // Verify Approval Comments
         .elementByCss('textarea[name=textArea1]').getValue().should.become('AnalystUser1 : Fix : Some sections are rejected by Analyst')

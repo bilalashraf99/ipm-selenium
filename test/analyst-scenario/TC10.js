@@ -20,31 +20,25 @@ it("Create instance - Org", function () {
         .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
         .elementByCss('form[name=loginForm] input[type=submit]').click()
 
-        // Click OnBoarding link in My Widgets section
-        .waitForElementByLinkText('OnBoarding', 10000).click()
+        .initiateOrganizationOnboarding('020258767', 'solnsengg@gmail.com', 'Willis Of New Hampshire Inc', 'LLIC', true, false)
 
-        // Fill form with Organization data and submit
-        .frame('AppShowFrame')
-        .elementByCss('#combobox1 option[value=Organization]').click()
-        .elementById('TaxIdDs').type('020258767')
-        .elementById('EmailDs').type('solnsengg@gmail.com')
-        .elementById('OrganizationNameDsStart').type('Willis Of New Hampshire Inc')
-        .elementByCss('#combobox6 option[value=LLIC]').click()
-        .elementById('checkbox1').click()
-        .elementById('checkbox2').click()
-        .elementById('createButton').click()
-        .sleep(2000)
-        //.waitForElementByCss('.x-message-box .x-header-text').text().should.eventually.not.contain('error')
+        // Wait
+        .sleep(8000)
+
+        .verifyNewCase('020258767', 'Willis Of New Hampshire Inc')
 
         // Click on My Worksteps tab
         .frame()
         .elementByLinkText('My Worksteps', 10000).click()
         .waitForElementByXPath('//div[normalize-space(text())="Enter Data & Review Docs"]/parent::td/following-sibling::td//a[normalize-space(text())="AnalystUser1"]')
-
-        // Click on Dashboard tab and verify new case among search results
-        .elementByLinkText('Dashboard', 10000).click()
-        .waitForElementByCss('#case_SearchResultsDefault a[data-qtip=Refresh]').click()
-        .waitForElementByXPath("//*[@id='case_SearchResultsDefault']/descendant::td[@data-qtip='020258767']/parent::tr/child::td[@data-qtip='Willis Of New Hampshire Inc']/parent::tr/child::td[@data-qtip='ACTIVATED']", 10000)
+        .catch(function() {
+            return common.retry(10, function() {
+                return browser
+                    .sleep(8000)
+                    .elementByCss('#instanceList a[data-qtip=Refresh]').click()
+                    .waitForElementByXPath('//div[normalize-space(text())="Enter Data & Review Docs"]/parent::td/following-sibling::td//a[normalize-space(text())="AnalystUser1"]')
+            });
+        })
 
         // Log out
         .elementByLinkText('Logout').click()
@@ -67,7 +61,7 @@ it("Create instance - Org", function () {
         .then(selectSubpageFrame0)
         .waitForElementByCss('input[name=Field_Org_Main_TaxID_Search_Value]').type('020258767')
         .elementByLinkText('Search').click()
-        .waitForElementByCss('table[name=Grid_Org_Main] tbody td:nth-child(2)').text().should.become('WILLIS OF NEW HAMPSHIRE INC')
+        .waitForElementByCss('table[name=Grid_Org_Main] tbody td:nth-child(2)').text().should.eventually.match(/WILLIS OF NEW HAMPSHIRE INC/i)
         .elementByCss('table[name=Grid_Org_Main] tbody td:nth-child(4)').text().should.become('020258767')
         .elementByCss('table[name=Grid_Org_Main] tbody td:nth-child(11)').text().should.become('solnsengg@gmail.com')
 

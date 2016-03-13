@@ -21,14 +21,15 @@ describe("Dashboard", function () {
             .quit();
     });
 
+    importTest('./dashboard/TC6');
+    importTest('./dashboard/TC7');
+    importTest('./dashboard/TC8');
+    importTest('./dashboard/TC10');
     importTest('./dashboard/TC12');
     importTest('./dashboard/TC13');
     importTest('./dashboard/TC14');
     importTest('./dashboard/TC15');
-    importTest('./dashboard/TC7');
-    importTest('./dashboard/TC8');
+
     importTest('./dashboard/TC9');
-    importTest('./dashboard/TC10');
-    importTest('./dashboard/TC6');
 
 });

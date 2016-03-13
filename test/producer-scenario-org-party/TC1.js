@@ -11,9 +11,7 @@ it("Initiate New Onboarding process", function() {
         .get(url)
 
         // Log in as user 'ebms'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("ebms.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("ebms.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('ebms')
 
         // Navigate to User Management under Administration tab and click Add button
         .waitForElementByLinkText('Administration', 10000).click()
@@ -22,11 +20,11 @@ it("Initiate New Onboarding process", function() {
 
         // Fill form with user data and submit
         .frame('createPanelIframe')
-        .elementByCss('input[name=userName]').type('020258767')
+        .elementByCss('input[name=userName]').type('371494996')
         .elementByCss('input[name=password]').type('password')
         .elementByCss('input[name=confPassword]').type('password')
-        .elementByCss('input[name=firstName]').type('Willis of New Hampshire')
-        .elementByCss('input[name=lastName]').type('Inc')
+        .elementByCss('input[name=firstName]').type('National Benefits Group Llc')
+        .elementByCss('input[name=lastName]').type('Dba Greenway Financial')
         .elementByCss('input[name=email]').type('solnsengg@gmail.com')
         .elementByCss('input[name=createUser]').click()
 
@@ -35,34 +33,36 @@ it("Initiate New Onboarding process", function() {
         .elementByLinkText('Logout').click()
 
         // Log in as user 'AnalystUser1'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('analyst')
 
-        // Click OnBoarding link in My Widgets section
-        .waitForElementByLinkText('OnBoarding', 10000).click()
+        .initiateOrganizationOnboarding('371494996', 'solnsengg@gmail.com', 'National Benefits Group Llc Dba Greenway Financial', 'IFS Bank', false, true)
 
-        // Fill form with organization data and submit
-        .frame('AppShowFrame')
-        .sleep(1000) // Fix for issue where fields get cleared while driver is typing
-        .waitForElementByCss('select#combobox1 option[value=Organization]').click()
-        .elementById('TaxIdDs').type('020258767')
-        .elementById('EmailDs').type('solnsengg@gmail.com')
-        .elementById('OrganizationNameDsStart').type('Willis Of New Hampshire Inc')
-        .elementByCss('select#combobox6 option[value="IFS Bank"]').click()
-        .elementById('createButton').click()
-        .waitForElementById('dashboardPanel', 5000)
+        //// Click OnBoarding link in My Widgets section
+        //.waitForElementByLinkText('OnBoarding', 10000).click()
+        //
+        //// Fill form with organization data and submit
+        //.frame('AppShowFrame')
+        //.sleep(1000) // Fix for issue where fields get cleared while driver is typing
+        //.waitForElementByCss('select#combobox1 option[value=Organization]').click()
+        //.elementById('TaxIdDs').type('020258767')
+        //.elementById('EmailDs').type('solnsengg@gmail.com')
+        //.elementById('OrganizationNameDsStart').type('Willis Of New Hampshire Inc')
+        //.elementByCss('select#combobox6 option[value="IFS Bank"]').click()
+        //.elementById('createButton').click()
+        //.waitForElementById('dashboardPanel', 5000)
 
         // WAIT
         .sleep(8000)
 
+        .verifyNewCase('371494996', 'National Benefits Group Llc Dba Greenway Financial')
+
         // Click on Dashboard tab and check new case among search results
-        .frame()
-        .elementByLinkText('Dashboard', 10000).click()
-        .waitForElementByCss('select#case_searchField option[value=TAX_ID]').click()
-        .waitForElementByCss('input#case_searchText').type('020258767')
-        .waitForElementByCss('input#case_search').click()
-        .waitForElementByXPath("//*[@id='case_SearchResults']/descendant::td[@data-qtip='020258767']/parent::tr/child::td[@data-qtip='Willis Of New Hampshire Inc']/parent::tr/child::td[@data-qtip='ACTIVATED']", 10000)
+        //.frame()
+        //.elementByLinkText('Dashboard', 10000).click()
+        //.waitForElementByCss('select#case_searchField option[value=TAX_ID]').click()
+        //.waitForElementByCss('input#case_searchText').type('020258767')
+        //.waitForElementByCss('input#case_search').click()
+        //.waitForElementByXPath("//*[@id='case_SearchResults']/descendant::td[@data-qtip='020258767']/parent::tr/child::td[@data-qtip='Willis Of New Hampshire Inc']/parent::tr/child::td[@data-qtip='ACTIVATED']", 10000)
 
         // Log out
         .frame()

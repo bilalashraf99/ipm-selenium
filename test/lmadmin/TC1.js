@@ -1,5 +1,4 @@
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
 var url = common.bpmPortalUrl;
@@ -14,9 +13,7 @@ it("Create LMAdmin instance", function () {
         .get(url)
 
         // Log in as user 'ebms'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("ebms.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("ebms.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('ebms')
 
         // Click on Applications tab
         .waitForElementByLinkText('Applications', 10000).click()
