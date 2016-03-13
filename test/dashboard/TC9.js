@@ -39,6 +39,7 @@ it("Reassign Case", function () {
         .waitForElementByCss('iframe#actionHandler')
         .frame('actionHandler')
         .waitForElementByCss('a img[title=Search]').click()
+        .sleep(1000)
 
         // Reassign case
         .then(selectChildWindow)

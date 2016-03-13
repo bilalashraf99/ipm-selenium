@@ -20,33 +20,6 @@ it("Create instance - Person", function() {
         .sleep(8000)
 
         .verifyNewCase('067600492', 'John Blumberg')
-        //// Click on Dashboard tab
-        //.frame()
-        //.elementByLinkText('Dashboard', 10000).click()
-        //
-        //// Verify new case among search results
-        //.waitForElementByCss('select#case_searchField option[value=TAX_ID]').click()
-        //.waitForElementByCss('input#case_searchText').type('067600492')
-        //.waitForElementByCss('input#case_search').click()
-        //.waitForElementByXPath("//*[@id='case_SearchResults']/descendant::td[@data-qtip='067600492']/parent::tr/child::td[@data-qtip='John Blumberg']/parent::tr/child::td[@data-qtip='ACTIVATED']")
-        //.then(function(element) {
-        //    if (element == undefined) {
-        //        return common.retry(10, function() {
-        //            return browser
-        //                .sleep(8000)
-        //                .elementByCss('#case_SearchResults a[data-qtip=Refresh]').click()
-        //                .waitForElementByXPath("//*[@id='case_SearchResults']/descendant::td[@data-qtip='067600492']/parent::tr/child::td[@data-qtip='John Blumberg']/parent::tr/child::td[@data-qtip='ACTIVATED']")
-        //        });
-        //    }
-        //})
-        ////.catch(function() {
-        ////    return common.retry(10, function() {
-        ////        return browser
-        ////            .sleep(8000)
-        ////            .elementByCss('#case_SearchResults a[data-qtip=Refresh]').click()
-        ////            .waitForElementByXPath("//*[@id='case_SearchResults']/descendant::td[@data-qtip='067600492']/parent::tr/child::td[@data-qtip='John Blumberg']/parent::tr/child::td[@data-qtip='ACTIVATED']")
-        ////    });
-        ////})
 
         // Log out
         .frame()

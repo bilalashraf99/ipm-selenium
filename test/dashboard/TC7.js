@@ -30,7 +30,7 @@ it("View / Edit Documents", function () {
         .elementByCss('fieldset#RequiredDocs button[name=addNew]').click()
         .waitForElementByCss('input#uploadFilesID').sendKeys(path.join(__dirname, "../../files", "Welcome.docx"))
         .elementByCss('input[value=Upload]').click()
-        .waitForElementByCss('fieldset#RequiredDocs a').text().should.become("Welcome.docx")
+        .waitForElementByCss('fieldset#RequiredDocs a', 5000).text().should.become("Welcome.docx")
         .frame()
         .elementByCss('img.x-tool-close').click()
 

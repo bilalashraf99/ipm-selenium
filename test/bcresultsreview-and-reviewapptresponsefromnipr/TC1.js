@@ -20,11 +20,6 @@ it("Create instance", function () {
 
         .verifyNewCase('208949993', 'WATSON FINANCIAL SERVICES INC')
 
-        //// Click on Dashboard tab and verify new case among search results
-        //.elementByLinkText('Dashboard', 10000).click()
-        //.waitForElementByCss('#case_SearchResultsDefault a[data-qtip=Refresh]').click()
-        //.waitForElementByXPath("//*[@id='case_SearchResultsDefault']/descendant::td[@data-qtip='020258767']/parent::tr/child::td[@data-qtip='Willis Of New Hampshire Inc']/parent::tr/child::td[@data-qtip='ACTIVATED']", 10000)
-
         // Verify task in My Tasks section
         .elementByCss('#basicSearchDiv input#search').click()
         .waitForElementByXPath("//*[@id='SearchResults']//a[normalize-space(text())='EnterDataAndReviewDocs']")

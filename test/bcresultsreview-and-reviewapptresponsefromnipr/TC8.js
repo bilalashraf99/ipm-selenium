@@ -65,6 +65,10 @@ it("EnterDataAndReviewDocs (2)", function() {
 
         // Click on Submit button
         .elementByCss('input[value=Submit]').click()
+        .sleep(10000)
+
+        // Validate Up-line screen
+        .frame('TaskShowFrame')
         .waitForElementByCss('div#midPanelHeader').text().should.become('Select Up-line');
 
 });

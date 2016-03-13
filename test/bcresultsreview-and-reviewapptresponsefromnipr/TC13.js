@@ -1,6 +1,8 @@
 var common = require("../common");
 var browser = common.browser;
 
+var url = common.bpmPortalUrl;
+
 it("Create instance and EnterDataAndReviewDocs", function() {
 
     return browser
@@ -28,13 +30,12 @@ it("Create instance and EnterDataAndReviewDocs", function() {
         .waitForElementByLinkText('Expand All').click()
 
         // Fill in Contact Information form data
-        .waitForElementById('contactInformationHeader').click()
         .elementById('Street1Ds1').type('s1')
         .elementById('CityDs1').type('cityone')
         .elementByCss('#StateDs1 option[value=CA]').click()
         .elementById('ZipDs1').type('1111')
         .elementById('PhoneDs1').type('2222')
-        .elementById('EmailDs1').type('solnsengg@gmail.com')
+        .elementById('EmailDs1').clear().type('solnsengg@gmail.com')
 
         // Fill in Errors and Omissions form data
         .elementById('CarrierDs').type('Carrier1')
@@ -55,7 +56,7 @@ it("Create instance and EnterDataAndReviewDocs", function() {
         .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=Yes]').then(common.clickAll)
 
         // Fill in Appointment Requests form data
-        .elementByXPath('//div[@id="licensesBODsDiv"]//td[contains(text(), "Michigan")]/following::input[1]').click()
+        .elementByXPath('//div[@id="licensesBODsDiv"]//td[contains(text(), "Minnesota")]/following::input[1]').click()
 
         // Fill in Upload Documents form data
         .elementsByCss('#RequiredDocNamesTableDiv tr td:nth-child(2) input[type=radio]').then(common.clickAll)
@@ -68,6 +69,10 @@ it("Create instance and EnterDataAndReviewDocs", function() {
 
         // Click on Submit button
         .elementByCss('input[value=Submit]').click()
+        .sleep(10000)
+
+        // Validate Up-line screen
+        .frame('TaskShowFrame')
         .waitForElementByCss('div#midPanelHeader').text().should.become('Select Up-line');
 
 });
