@@ -3,6 +3,8 @@ var browser = common.browser;
 
 it("Select Upline and Send response to BIG", function() {
 
+    var instanceId;
+
     var mainWindow;
 
     var selectMainWindow = function() {
@@ -51,7 +53,9 @@ it("Select Upline and Send response to BIG", function() {
         }).sleep(1000)
 
         // Send response for BIG
-        .postJson('files/BIG_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse', instanceId)
+        .then(function() {
+            return browser.postJson('files/BIG_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse', instanceId);
+        })
 
         // Click on Dashboard tab and verify search results
         .sleep(2000)

@@ -53,10 +53,14 @@ it("Select Upline, Send response to BIG and NIPR - Person party", function() {
         }).sleep(1000)
 
         // Send response for BIG
-        .postJson('files/BIG_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse', instanceId)
+        .then(function() {
+            return browser.postJson('files/BIG_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse', instanceId)
+        })
 
         // Send response for NIPR
-        .postJson('files/NIPR_Request_FAIL.txt', '/sbm/cxfws/NIPRResponseReceiver/postNIPRResponse', instanceId)
+        .then(function() {
+            return browser.postJson('files/NIPR_Request_FAIL.txt', '/sbm/cxfws/NIPRResponseReceiver/postNIPRResponse', instanceId);
+        })
 
         // Wait
         .sleep(8000)

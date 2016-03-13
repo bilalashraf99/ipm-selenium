@@ -1,8 +1,6 @@
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
-var url = common.bpmPortalUrl;
 
 it("Enter data - Add / View Notes", function () {
 

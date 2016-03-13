@@ -1,5 +1,4 @@
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
 var url = common.bpmPortalUrl;
@@ -13,30 +12,14 @@ it("Initiate OB process and EnterDataAndReviewDocs - Org party", function () {
         .get(url)
 
         // Log in as user 'AnalystUser1'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('analyst')
 
-        // Click OnBoarding link in My Widgets section
-        .waitForElementByLinkText('OnBoarding', 10000).click()
+        .initiateOrganizationOnboarding('020258767', 'solnsengg@gmail.com', 'Willis Of New Hampshire Inc', 'LLIC', false, false)
 
-        // Fill form with Organization data and submit
-        .frame('AppShowFrame')
-        .elementByCss('#combobox1 option[value=Organization]').click()
-        .elementById('TaxIdDs').type('020258767')
-        .elementById('EmailDs').type('solnsengg@gmail.com')
-        .elementById('OrganizationNameDsStart').type('Willis Of New Hampshire Inc')
-        .elementByCss('#combobox6 option[value=LLIC]').click()
-        .elementById('checkbox2').click()
-        .elementById('createButton').click()
-        .sleep(5000)
-        //.waitForElementByCss('.x-message-box .x-header-text').text().should.eventually.not.contain('error')
+        // Wait
+        .sleep(8000)
 
-        // Click on Dashboard tab and verify new case among search results
-        .frame()
-        .elementByLinkText('Dashboard', 10000).click()
-        .waitForElementByCss('#case_SearchResultsDefault a[data-qtip=Refresh]').click()
-        .waitForElementByXPath("//*[@id='case_SearchResultsDefault']/descendant::td[@data-qtip='020258767']/parent::tr/child::td[@data-qtip='Willis Of New Hampshire Inc']/parent::tr/child::td[@data-qtip='ACTIVATED']", 10000)
+        .verifyNewCase('020258767', 'Willis Of New Hampshire Inc')
 
         // Verify task in My Tasks section
         .elementByCss('#basicSearchDiv input#search').click()

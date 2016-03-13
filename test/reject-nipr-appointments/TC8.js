@@ -12,9 +12,7 @@ it("ReviewApptResponseFromNIPR- Add Appointments - Person party", function() {
         .get(url)
 
         // Log in as user 'AnalystUser1'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('analyst')
 
         // Click on ReviewApptResponseFromNIPR
         .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
@@ -40,7 +38,9 @@ it("ReviewApptResponseFromNIPR- Add Appointments - Person party", function() {
         }).sleep(1000)
 
         // Send response for NIPR
-        .postJson('files/NIPR_Request.txt', '/sbm/cxfws/NIPRResponseReceiver/postNIPRResponse', instanceId)
+        .then(function() {
+            return browser.postJson('files/NIPR_Request.txt', '/sbm/cxfws/NIPRResponseReceiver/postNIPRResponse', instanceId);
+        })
 
         // Wait
         .sleep(8000)

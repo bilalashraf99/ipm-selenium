@@ -9,14 +9,6 @@ it("Enter data - Add producer information and Submit form", function () {
     var nextDayXPath = '//div[contains(concat(" ", normalize-space(@class), " "), " x-datepicker ") and not(contains(@style,"display: none"))]'
         + '//td[contains(concat(" ", normalize-space(@class), " "), " x-datepicker-today ")]/following::td[1]';
 
-    var clickAll = function(elements) {
-        var result = [];
-        for (var i = 0; i < elements.length; i++) {
-            result.push(elements[i].click());
-        }
-        return Promise.all(result);
-    };
-
     return browser
         // Click Show Task button
         .frame()
@@ -65,7 +57,7 @@ it("Enter data - Add producer information and Submit form", function () {
         .elementById('legalQuestionsHeader').click()
 
         // Fill in Legal Questions form data
-        .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=Yes]').then(clickAll)
+        .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=Yes]').then(common.clickAll)
         .elementById('appointmentRequestsHeader').click()
 
         // Fill in Appointment Requests form data

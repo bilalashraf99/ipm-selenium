@@ -1,5 +1,4 @@
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
 var url = common.bpmPortalUrl;
@@ -13,9 +12,7 @@ it("Send response to BIG and NIPR and complete flow - Person", function() {
         .get(url).windowHandle()
 
         // Log in as user 'AnalystUser1'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('analyst')
 
         // Click on My Worksteps tab and get instance number
         .frame()
@@ -27,10 +24,14 @@ it("Send response to BIG and NIPR and complete flow - Person", function() {
         }).sleep(1000)
 
         // Send response for BIG
-        .postJson('files/BIG_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse', instanceId)
+        .then(function() {
+            return browser.postJson('files/BIG_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse', instanceId);
+        })
 
         // Send response for NIPR
-        .postJson('files/NIPR_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse', instanceId)
+        .then(function() {
+            return browser.postJson('files/NIPR_Request.txt', '/sbm/cxfws/BIGResponseReceiver/postBCResponse', instanceId);
+        })
 
         // Click on Dashboard tab and verify search results
         .sleep(2000)

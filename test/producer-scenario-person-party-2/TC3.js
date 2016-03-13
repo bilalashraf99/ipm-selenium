@@ -1,18 +1,8 @@
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
-var url = common.bpmPortalUrl;
 
 it("Upload documents", function () {
-
-    var clickAll = function(elements) {
-        var result = [];
-        for (var i = 0; i < elements.length; i++) {
-            result.push(elements[i].click());
-        }
-        return Promise.all(result);
-    };
 
     return browser
         // Click Upload Documents section header
@@ -44,7 +34,7 @@ it("Upload documents", function () {
         .elementById('eSignDocumentsHeader').click()
 
         // Select checkboxes
-        .elementsByCss('input[name=eSignDocCheckbox]').then(clickAll)
+        .elementsByCss('input[name=eSignDocCheckbox]').then(common.clickAll)
 
         // Sign and click Submit
         .elementByCss('input#eSignDs').type("Fred Sellers")

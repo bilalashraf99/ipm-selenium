@@ -12,9 +12,7 @@ it("Initiate New Onboarding process", function () {
         .get(url)
 
         // Log in as user 'ebms'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("ebms.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("ebms.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('ebms')
 
         // Click on Administration tab
         .waitForElementByLinkText('Administration', 10000).click()
@@ -40,9 +38,7 @@ it("Initiate New Onboarding process", function () {
         .elementByLinkText('Logout').click()
 
         // Log in as user 'AnalystUser1'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('analyst')
 
         // Click OnBoarding link in My Widgets section
         .waitForElementByLinkText('OnBoarding', 10000).click()

@@ -1,5 +1,4 @@
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
 var url = common.bpmPortalUrl;
@@ -11,9 +10,7 @@ it("Enter data - View approver comments and modify data after Fix action", funct
         .get(url)
 
         // Log in as user '067600492'
-        .waitForElementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("067600492.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("067600492.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('067600492')
 
         // Attempt to enter valid value
         .frame('TaskShowFrame')

@@ -1,6 +1,5 @@
 require("date-utils");
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
 var url = common.bpmPortalUrl;
@@ -9,22 +8,12 @@ it("Verify modifications for person party and Submit form", function () {
 
     var format = 'MMM DD, YYYY 00:00';
 
-    var clickAll = function(elements) {
-        var result = [];
-        for (var i = 0; i < elements.length; i++) {
-            result.push(elements[i].click());
-        }
-        return Promise.all(result);
-    };
-
     return browser
         // Load login page
         .get(url)
 
         // Log in as user '067600492'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("067600492.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("067600492.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('067600492')
 
         // Attempt to enter valid value
         .frame('TaskShowFrame')
@@ -63,12 +52,12 @@ it("Verify modifications for person party and Submit form", function () {
 
         // Fill in Legal Questions form data and verify
         .elementById('legalQuestionsHeader').click()
-        .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=No]').then(clickAll)
+        .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=No]').then(common.clickAll)
         .elementsByCss('div#legalQuestionsContentDiv').text().should.eventually.include("Legal Question 1")
 
         // Fill in Appointment Requests form data
         .elementById('appointmentRequestsHeader').click()
-        .elementByCss('#appointmentRequestsContentDiv input[type=checkbox]:not(:checked)').then(clickAll)
+        .elementByCss('#appointmentRequestsContentDiv input[type=checkbox]:not(:checked)').then(common.clickAll)
 
         // Click on Submit button
         .elementByLinkText('Collapse All').click()

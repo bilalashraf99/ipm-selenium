@@ -1,5 +1,4 @@
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
 var url = common.bpmPortalUrl;
@@ -11,9 +10,7 @@ it("View Workflow", function () {
         .get(url)
 
         // Log in as user 'AnalystUser1'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('analyst')
 
         // Perform Advanced case search for tax ID
         .waitForElementByCss('input#case_advSearch').click()
@@ -32,9 +29,7 @@ it("View Workflow", function () {
         .elementByLinkText('Logout').click()
 
         // Log in as user 'ManagerUser1'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("manager.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("manager.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('manager')
 
         // Perform Advanced case search for tax ID
         .waitForElementByCss('input#case_advSearch').click()

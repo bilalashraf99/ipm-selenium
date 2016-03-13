@@ -1,6 +1,5 @@
 require("date-utils");
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
 var url = common.bpmPortalUrl;
@@ -14,9 +13,7 @@ it("EnterDataAndReviewDocs - Person party", function() {
         .get(url)
 
         // Log in as user 'AnalystUser1' {
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('analyst')
 
         // Click on EnterDataAndReviewDocs
         .waitForElementByCss('select#searchField option[value=TAX_ID]').click()

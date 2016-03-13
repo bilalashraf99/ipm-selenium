@@ -1,5 +1,4 @@
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
 var url = common.bpmPortalUrl;
@@ -37,32 +36,10 @@ it("Initiate New Onboarding process", function() {
 
         .initiateOrganizationOnboarding('371494996', 'solnsengg@gmail.com', 'National Benefits Group Llc Dba Greenway Financial', 'IFS Bank', false, true)
 
-        //// Click OnBoarding link in My Widgets section
-        //.waitForElementByLinkText('OnBoarding', 10000).click()
-        //
-        //// Fill form with organization data and submit
-        //.frame('AppShowFrame')
-        //.sleep(1000) // Fix for issue where fields get cleared while driver is typing
-        //.waitForElementByCss('select#combobox1 option[value=Organization]').click()
-        //.elementById('TaxIdDs').type('020258767')
-        //.elementById('EmailDs').type('solnsengg@gmail.com')
-        //.elementById('OrganizationNameDsStart').type('Willis Of New Hampshire Inc')
-        //.elementByCss('select#combobox6 option[value="IFS Bank"]').click()
-        //.elementById('createButton').click()
-        //.waitForElementById('dashboardPanel', 5000)
-
         // WAIT
         .sleep(8000)
 
         .verifyNewCase('371494996', 'National Benefits Group Llc Dba Greenway Financial')
-
-        // Click on Dashboard tab and check new case among search results
-        //.frame()
-        //.elementByLinkText('Dashboard', 10000).click()
-        //.waitForElementByCss('select#case_searchField option[value=TAX_ID]').click()
-        //.waitForElementByCss('input#case_searchText').type('020258767')
-        //.waitForElementByCss('input#case_search').click()
-        //.waitForElementByXPath("//*[@id='case_SearchResults']/descendant::td[@data-qtip='020258767']/parent::tr/child::td[@data-qtip='Willis Of New Hampshire Inc']/parent::tr/child::td[@data-qtip='ACTIVATED']", 10000)
 
         // Log out
         .frame()

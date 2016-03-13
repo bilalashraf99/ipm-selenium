@@ -1,5 +1,4 @@
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
 var url = common.bpmPortalUrl;
@@ -10,9 +9,7 @@ it("Verify Tax ID", function () {
         return browser
             .elementByLinkText('Logout').click()
             .sleep(5000)
-            .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("067600492.username"))
-            .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("067600492.password"))
-            .elementByCss('form[name=loginForm] input[type=submit]').click()
+            .login('067600492')
             .frame('TaskShowFrame');
     };
 
@@ -21,9 +18,7 @@ it("Verify Tax ID", function () {
         .get(url)
 
         // Log in as user '067600492'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("067600492.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("067600492.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('067600492')
 
         // Make first attempt to enter invalid Tax ID
         .frame('TaskShowFrame')
@@ -58,9 +53,7 @@ it("Verify Tax ID", function () {
         .waitForElementByLinkText('Logout').click()
 
         // Log in as user 'AnalystUser1'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('analyst')
 
         // Click on new task among search results
         .then(function () {
@@ -84,9 +77,7 @@ it("Verify Tax ID", function () {
         .elementByLinkText('Logout').click()
 
         // Log in as user '067600492'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("067600492.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("067600492.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('067600492')
 
         // Click Cancel
         .frame('TaskShowFrame')
@@ -100,9 +91,7 @@ it("Verify Tax ID", function () {
         .get(url)
 
         // Log in as user '067600492'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').clear().type(config.get("067600492.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("067600492.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('067600492')
 
         // Attempt to enter valid value
         .frame('TaskShowFrame')

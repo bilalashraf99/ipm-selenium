@@ -6,14 +6,6 @@ it("Enter data - Add producer information and Submit form", function() {
 
     var format = 'MMM DD, YYYY 00:00';
 
-    var clickAll = function(elements) {
-        var result = [];
-        for (var i = 0; i < elements.length; i++) {
-            result.push(elements[i].click());
-        }
-        return Promise.all(result);
-    };
-
     return browser
         // Click Show Task button
         .frame()
@@ -63,11 +55,11 @@ it("Enter data - Add producer information and Submit form", function() {
 
         // Fill in Legal Questions form data
         .elementById('legalQuestionsHeader').click()
-        .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=Yes]').then(clickAll)
+        .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=Yes]').then(common.clickAll)
 
         // Fill in Appointment Requests form data
         .elementById('appointmentRequestsHeader').click()
-        .elementByCss('#appointmentRequestsContentDiv input[type=checkbox]:not(:checked)').then(clickAll)
+        .elementByCss('#appointmentRequestsContentDiv input[type=checkbox]:not(:checked)').then(common.clickAll)
         .elementByCss('select#unclicensedStateDD option[value=Alabama]').click()
         .elementByCss('input#addUnlicensedStateButton').click()
         .elementByCss('div#unlicensedStateContentDiv').text().should.become('Alabama')

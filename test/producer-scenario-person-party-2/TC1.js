@@ -1,6 +1,5 @@
 require("date-utils");
 var common = require("../common");
-var config = common.config;
 var browser = common.browser;
 
 var url = common.bpmPortalUrl;
@@ -9,22 +8,12 @@ it("Initiate new OnBoarding instance and Enter Data", function () {
 
     var format = 'MMM DD, YYYY 00:00';
 
-    var clickAll = function(elements) {
-        var result = [];
-        for (var i = 0; i < elements.length; i++) {
-            result.push(elements[i].click());
-        }
-        return Promise.all(result);
-    };
-
     return browser
         // Load login page
         .get(url)
 
         // Log in as user 'ebms'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("ebms.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("ebms.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('ebms')
 
         // Click on Administration tab
         .waitForElementByLinkText('Administration', 10000).click()
@@ -50,31 +39,21 @@ it("Initiate new OnBoarding instance and Enter Data", function () {
         .elementByLinkText('Logout').click()
 
         // Log in as user 'AnalystUser1'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("analyst.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("analyst.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('analyst')
 
-        // Click OnBoarding link in My Widgets section
-        .waitForElementByLinkText('OnBoarding', 10000).click()
+        .initiatePersonOnboarding('326588332', 'solnsengg@gmail.com', 'Fred', 'Sellers', 'IFS Bank', false, true)
 
-        // Fill form with user data and submit
-        .frame('AppShowFrame')
-        .elementById('TaxIdDs').type('326588332')
-        .elementById('EmailDs').type('solnsengg@gmail.com')
-        .elementById('FirstNameDsStart').type('Fred')
-        .elementById('LastNameDsStart').type('Sellers')
-        .elementByCss('#combobox6 option[value="IFS Bank"]').click()
-        .elementById('createButton').click()
-        .sleep(2000)
+        // Wait
+        .sleep(8000)
+
+        .verifyNewCase('326588332', 'Fred Sellers')
 
         // Log out
         .frame()
         .elementByLinkText('Logout').click()
 
         // Log in as user '326588332'
-        .elementByCss('form[name=loginForm] input[name=BizPassUserID]').type(config.get("326588332.username"))
-        .elementByCss('form[name=loginForm] input[name=BizPassUserPassword]').type(config.get("326588332.password"))
-        .elementByCss('form[name=loginForm] input[type=submit]').click()
+        .login('326588332')
 
         // Attempt to enter valid value
         .frame('TaskShowFrame')
@@ -101,7 +80,7 @@ it("Initiate new OnBoarding instance and Enter Data", function () {
         .elementById('date_Time5_id-inputEl').type(Date.tomorrow().toFormat(format))
 
         // Fill in Legal Questions form data
-        .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=Yes]').then(clickAll)
+        .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=Yes]').then(common.clickAll)
 
         // Fill in Appointment Requests form data
         .elementByXPath('//div[@id="licensesBODsDiv"]//td[contains(text(), "Michigan")]/following::input[1]').click()
