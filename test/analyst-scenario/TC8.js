@@ -30,6 +30,9 @@ it("Select Upline - Person", function() {
         // Log in as user 'AnalystUser1'
         .login('analyst')
 
+        // Click on Dashboard tab
+        .waitForElementByLinkText('Dashboard', 10000).click()
+
         // Open "Select Upline" task for Tax ID 020258767
         .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
         .elementByCss('input#searchText').type("067600492")

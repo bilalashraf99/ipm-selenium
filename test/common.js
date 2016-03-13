@@ -1,7 +1,8 @@
+var fs = require('fs');
+var http = require('http');
+
 var config = require('nconf');
 config.file({file: './test/config.json'});
-
-var fs = require('fs');
 
 var chai = require("chai");
 var chaiAsPromised = require("chai-as-promised");

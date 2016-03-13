@@ -15,6 +15,9 @@ it("EnterDataAndReviewDocs - Person party", function() {
         // Log in as user 'AnalystUser1' {
         .login('analyst')
 
+        // Click on Dashboard tab
+        .waitForElementByLinkText('Dashboard', 10000).click()
+
         // Click on EnterDataAndReviewDocs
         .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
         .elementByCss('input#searchText').type('067600492')

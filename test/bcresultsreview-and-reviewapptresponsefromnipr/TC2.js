@@ -5,20 +5,15 @@ var url = common.bpmPortalUrl;
 
 it("EnterDataAndReviewDocs", function() {
 
-    var clickAll = function(elements) {
-        var results = [];
-        for (var i = 0; i < elements.length; i++) {
-            results.push(elements[i].click());
-        }
-        return Promise.all(results);
-    };
-
     return browser
         // Load login page
         .get(url)
 
         // Log in as user 'AnalystUser1'
         .login('analyst')
+
+        // Click on Dashboard tab
+        .waitForElementByLinkText('Dashboard', 10000).click()
 
         // Click on EnterDataAndReviewDocs
         .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
@@ -55,7 +50,7 @@ it("EnterDataAndReviewDocs", function() {
 
         // Fill in Legal Questions form data
         .elementById('legalQuestionsHeader').click()
-        .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=No]').then(clickAll)
+        .elementsByCss('div#legalQuestionsContentDiv input[type=radio][value=No]').then(common.clickAll)
 
         // Fill in Appointment Requests form data
         .elementById('appointmentRequestsHeader').click()
@@ -63,8 +58,8 @@ it("EnterDataAndReviewDocs", function() {
 
         // Fill in Upload Documents form data
         .elementById('uploadDocumentsHeader').click()
-        .elementsByCss('#RequiredDocNamesTableDiv tr td:nth-child(2) input[type=radio]').then(clickAll)
-        .elementsByCss('#RequiredDocNamesTableDiv tr td:nth-child(5) input[type=radio]').then(clickAll)
+        .elementsByCss('#RequiredDocNamesTableDiv tr td:nth-child(2) input[type=radio]').then(common.clickAll)
+        .elementsByCss('#RequiredDocNamesTableDiv tr td:nth-child(5) input[type=radio]').then(common.clickAll)
 
         // Click Collapse All and reopen Upload Documents section
         .elementByLinkText('Collapse All').click()
