@@ -1,6 +1,8 @@
 var common = require("../common");
 var browser = common.browser;
 
+var url = common.bpmPortalUrl;
+
 it("Approval - Escalate for organization party", function () {
 
     var approvalXPath = "//*[@id='SearchResults']/descendant::td[@data-qtip='020258767']/parent::tr/child::td[@data-qtip='Willis of New Hampshire Inc']/parent::tr/descendant::a[normalize-space(text())='Approval']";

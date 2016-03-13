@@ -40,40 +40,12 @@ it("Initiate New Onboarding process", function () {
         // Log in as user 'AnalystUser1'
         .login('analyst')
 
-        // Click OnBoarding link in My Widgets section
-        .waitForElementByLinkText('OnBoarding', 10000).click()
-
-        // Fill form with user data and submit
-        .frame('AppShowFrame')
-        .sleep(1000) // Fix for issue where fields get cleared while driver is typing
-        .elementById('TaxIdDs').type('067600492')
-        .elementById('EmailDs').type('solnsengg@gmail.com')
-        .elementById('FirstNameDsStart').type('John')
-        .elementById('LastNameDsStart').type('Blumberg')
-        .elementByCss('select#combobox6 option[value="IFS Bank"]').click()
-        .elementById('createButton').click()
-        .waitForElementById('dashboardPanel', 100000)
+        .initiatePersonOnboarding('067600492', 'solnsengg@gmail.com', 'John', 'Blumberg', 'IFS Bank', false, true)
 
         // Wait
         .sleep(8000)
 
-        // Click on Dashboard tab
-        .frame()
-        .elementByLinkText('Dashboard', 10000).click()
-
-        // Verify new case among search results
-        .waitForElementByCss('select#case_searchField option[value=TAX_ID]').click()
-        .waitForElementByCss('input#case_searchText').type('067600492')
-        .waitForElementByCss('input#case_search').click()
-        .waitForElementByXPath("//*[@id='case_SearchResults']/descendant::td[@data-qtip='067600492']/parent::tr/child::td[@data-qtip='John Blumberg']/parent::tr/child::td[@data-qtip='ACTIVATED']", 10000)
-        .catch(function() {
-            return common.retry(10, function() {
-                return browser
-                    .sleep(5000)
-                    .elementByCss('#case_SearchResults a[data-qtip=Refresh]').click()
-                    .waitForElementByXPath("//*[@id='case_SearchResults']/descendant::td[@data-qtip='067600492']/parent::tr/child::td[@data-qtip='John Blumberg']/parent::tr/child::td[@data-qtip='ACTIVATED']")
-            });
-        })
+        .verifyNewCase('067600492', 'John Blumberg')
 
         // Log out
         .frame()

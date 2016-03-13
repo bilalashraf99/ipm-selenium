@@ -34,7 +34,7 @@ it("My Widgets - Basic search", function () {
         .elementByCss('input#case_searchText1').clear().type('PI_REMOVED')
         .elementByCss('#case_basicSearchDiv input#case_search').click()
         .sleep(1000)
-        .waitForElementsByCss('div#case_SearchResults table[role=presentation] tr').should.eventually.have.length(1)
+        .waitForElementsByCss('div#case_SearchResults table[role=presentation] tr').should.eventually.have.length.of.at.least(1)
 
         // Search based on Tax ID
         .waitForElementByCss('select#case_searchField1 option[value=TAX_ID]').click()
@@ -42,7 +42,7 @@ it("My Widgets - Basic search", function () {
         .elementByCss('input#case_searchText1').clear().type('02')
         .elementByCss('#case_basicSearchDiv input#case_search').click()
         .sleep(1000)
-        .waitForElementsByCss('div#case_SearchResults table[role=presentation] tr').should.eventually.have.length(1)
+        .waitForElementsByCss('div#case_SearchResults table[role=presentation] tr').should.eventually.have.length.of.at.least(1)
 
         // Search based on Name
         .waitForElementByCss('select#case_searchField1 option[value=NAME]').click()
