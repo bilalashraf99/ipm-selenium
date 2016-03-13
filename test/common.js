@@ -145,7 +145,7 @@ wd.addPromiseChainMethod('verifyNewCase', function(taxId, name) {
         // Click on Dashboard tab
         .frame()
         .elementByLinkText('Dashboard', 10000).click()
-        .waitForElementByCss('select#case_searchField option[value=TAX_ID]').click()
+        .waitForElementByCss('select#case_searchField option[value=TAX_ID]', 10000).click()
         .waitForElementByCss('input#case_searchText').type(taxId)
         .waitForElementByCss('input#case_search').click()
         .waitForElementByXPath(xPath)

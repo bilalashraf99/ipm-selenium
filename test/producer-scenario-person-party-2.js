@@ -5,7 +5,7 @@ function importTest(path) {
     require(path);
 }
 
-describe("Producer Scenario, Person Party - Session 2", function () {
+describe("Producer Scenario, Person Party - session 2", function () {
     this.timeout(300000);
 
     var config = common.config;
