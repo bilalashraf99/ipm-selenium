@@ -43,7 +43,7 @@ it("My Widgets - Advanced search", function () {
         .elementByXPath('//input[@id="case_selectedToDateSTask"]/following-sibling::a').click()
         .elementByXPath('//div[@class="calendar" and contains(@style,"display: block")]//td[contains(@class,"today")]/following::td[not(contains(@class,"wn"))]').click()
         .elementByCss('#case_advSearchDiv input[value=Search]').click()
-        .waitForElementsByCss('div#case_SearchResults table[role=presentation] tr').should.eventually.have.length(1)
+        .waitForElementsByCss('div#case_SearchResults table[role=presentation] tr').should.eventually.have.length.of.at.least(1)
 
         // Log out
         .elementByLinkText('Logout').click();

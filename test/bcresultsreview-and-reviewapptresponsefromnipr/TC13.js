@@ -23,7 +23,15 @@ it("Create instance and EnterDataAndReviewDocs", function() {
         .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
         .elementByCss('input#searchText').type('326588332')
         .elementByCss('input#search').click()
-        .waitForElementByLinkText('EnterDataAndReviewDocs', 10000).click()
+        .waitForElementByLinkText('EnterDataAndReviewDocs').click()
+        .catch(function() {
+            return retry(10, function() {
+                return browser
+                    .sleep(8000)
+                    .elementByCss('#SearchResults a[data-qtip=Refresh]').click()
+                    .waitForElementByLinkText('EnterDataAndReviewDocs').click();
+            });
+        })
 
         // Expand all sections
         .frame('TaskShowFrame')

@@ -59,7 +59,7 @@ it("Enter data - Add producer information and Submit form", function() {
 
         // Fill in Appointment Requests form data
         .elementById('appointmentRequestsHeader').click()
-        .elementByCss('#appointmentRequestsContentDiv input[type=checkbox]:not(:checked)').then(common.clickAll)
+        .elementsByCss('#appointmentRequestsContentDiv input[type=checkbox]:not(:checked)').then(common.clickAll)
         .elementByCss('select#unclicensedStateDD option[value=Alabama]').click()
         .elementByCss('input#addUnlicensedStateButton').click()
         .elementByCss('div#unlicensedStateContentDiv').text().should.become('Alabama')

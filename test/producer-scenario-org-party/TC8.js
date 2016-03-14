@@ -57,7 +57,7 @@ it("Create child position in DCM", function() {
         .frame("navbar")
         .waitForElementByCss('a[id="Compensation Setup"]').moveTo()
         .elementByCss('a#Agreement_sub').click()
-        .then(selectSubpageFrame0)
+        .then(selectSubpageFrame1)
         .waitForElementById('Search_Agreement_Main_SearchFormDiv')
         .elementByLinkText('>', 'Search').click()
         .elementByXPath('//table[@id="Grid_Agreement_Main"]//td[normalize-space(text())="AG3"]').click()

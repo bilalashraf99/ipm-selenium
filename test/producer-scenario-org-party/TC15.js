@@ -53,9 +53,7 @@ it("Verify organization party in DCM", function() {
         .then(selectSubpageFrame0)
         .elementById('Tab_Org_DistributorData_Main_EO_link').click()
         .frame('component_iframe')
-        .waitForElementsByCss('table#Grid_Org_DistributorData_Main_EO tbody tr').then(function(elements) {
-            return elements.should.have.length.above(0);
-        })
+        .waitForElementsByCss('table#Grid_Org_DistributorData_Main_EO tbody tr').should.eventually.have.length.above(0)
 
         // Log out
         .frame()

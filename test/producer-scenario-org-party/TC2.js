@@ -5,14 +5,6 @@ var url = common.bpmPortalUrl;
 
 it("Verify Tax ID", function() {
 
-    var relog = function() {
-        return browser
-            .elementByLinkText('Logout').click()
-            .sleep(5000)
-            .login('371494996')
-            .frame('TaskShowFrame');
-    };
-
     return browser
         // Load login page
         .get(url)
@@ -23,7 +15,7 @@ it("Verify Tax ID", function() {
         // Should cancel Tax ID verification
         .frame('TaskShowFrame')
         .catch(function() {
-            return common.retry(10, relog);
+            return common.retry(10, common.relog('371494996'));
         })
         .waitForElementByCss('input[value=Cancel]').click()
         .frame()
