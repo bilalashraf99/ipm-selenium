@@ -57,6 +57,9 @@ it("Initiate new OnBoarding instance", function () {
 
         // Attempt to enter valid value
         .frame('TaskShowFrame')
+        .catch(function() {
+            return common.retry(10, common.relog('067600492'));
+        })
         .waitForElementByCss('form[name=form] input[name=Tax_Id]').type('0492')
         .elementByCss('form[name=form] input[type=submit]').click()
 

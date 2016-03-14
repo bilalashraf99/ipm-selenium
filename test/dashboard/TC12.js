@@ -13,7 +13,7 @@ it("My Tasks widget - Basic search", function () {
         .login('analyst')
 
         // Search based on Task Name
-        .waitForElementByCss('select#searchField option[value=TASK_NAME]').click()
+        .waitForElementByCss('select#searchField option[value=TASK_NAME]', 10000).click()
         .elementByCss('input#searchText').type('Review')
         .elementByCss('input#search').click()
         .sleep(1000)

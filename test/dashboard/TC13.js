@@ -13,7 +13,7 @@ it("My Tasks widget - Advanced search", function () {
         .login('analyst')
 
         // Open Advanced Search
-        .waitForElementByCss('input#advSearch').click()
+        .waitForElementByCss('input#advSearch', 10000).click()
 
         // Search based on Task Name
         .waitForElementByCss('select#selTaskName option[value=EnterDataAndReviewDocs]').click()

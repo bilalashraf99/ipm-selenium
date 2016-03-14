@@ -14,7 +14,7 @@ it("View / Edit Notes", function () {
 
 
         // Add notes for Activated case under My Widgets
-        .waitForElementByCss('select#case_searchField option[value=NAME]').click()
+        .waitForElementByCss('select#case_searchField option[value=NAME]', 10000).click()
         .elementByCss('input#case_searchText').type("John Blumberg")
         .waitForElementByCss('input#case_search').click()
         .waitForElementByXPath('//*[@id="case_SearchResults"]//td/div[normalize-space(text())="ACTIVATED"]/parent::td/preceding-sibling::td//input').click()
@@ -35,7 +35,7 @@ it("View / Edit Notes", function () {
         .login('manager')
 
         // Click Search icon in My Widgets
-        .waitForElementByCss('select#case_searchField option[value=NAME]').click()
+        .waitForElementByCss('select#case_searchField option[value=NAME]', 10000).click()
         .elementByCss('input#case_searchText').type("John Blumberg")
         .waitForElementByCss('input#case_search').click()
 

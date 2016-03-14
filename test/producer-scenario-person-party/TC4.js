@@ -70,7 +70,7 @@ it("Initiate New Onboarding process", function () {
         .frame("subpage")
         .waitForElementByCss('input[name=Field_Person_Main_TaxID_Search_Value]').type('067600492')
         .elementByLinkText('Search').click()
-        .waitForElementByCss('table[name=Grid_Person_Main] tbody td:nth-child(2)').text().should.become('Blumberg')
+        .waitForElementByCss('table[name=Grid_Person_Main] tbody td:nth-child(2)').text().should.eventually.match(/Blumberg/i)
         .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(5)').text().should.become('067600492')
         .elementByCss('table[name=Grid_Person_Main] tbody td:nth-child(12)').text().should.become('solnsengg@gmail.com')
 

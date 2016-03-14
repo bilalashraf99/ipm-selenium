@@ -12,8 +12,11 @@ it("EnterDataAndReviewDocs (2)", function() {
         // Log in as user 'AnalystUser1'
         .login('analyst')
 
+        // Click on Dashboard tab
+        .waitForElementByLinkText('Dashboard', 10000).click()
+
         // Click on EnterDataAndReviewDocs
-        .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
+        .waitForElementByCss('select#searchField option[value=TAX_ID]', 10000).click()
         .elementByCss('input#searchText').type('067600492')
         .elementByCss('input#search').click()
         .waitForElementByLinkText('EnterDataAndReviewDocs', 10000).click()

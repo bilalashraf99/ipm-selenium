@@ -31,7 +31,7 @@ it("Reassign Case", function () {
         .login('manager')
 
         // Click Search icon in My Widgets
-        .waitForElementByCss('input#case_search').click()
+        .waitForElementByCss('input#case_search', 10000).click()
 
         // Open Search popup under Reassign Case
         .waitForElementByXPath('//*[@id="case_SearchResults"]//td/div[normalize-space(text())="ACTIVATED"]/parent::td/preceding-sibling::td//input').click()

@@ -38,6 +38,14 @@ var retry = function(maxRetries, fn) {
     });
 };
 
+var relog = function(user) {
+    return browser
+        .elementByLinkText('Logout').click()
+        .sleep(5000)
+        .login(user)
+        .frame('TaskShowFrame');
+};
+
 var clickAll = function(elements) {
     var result = [];
     for (var i = 0; i < elements.length; i++) {
@@ -176,3 +184,4 @@ exports.bpmPortalUrl = bpmPortalUrl;
 exports.obAdminUrl = obAdminUrl;
 exports.clickAll = clickAll;
 exports.retry = retry;
+exports.relog = relog;

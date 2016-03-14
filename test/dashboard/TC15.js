@@ -13,7 +13,7 @@ it("My Widgets - Advanced search", function () {
         .login('manager')
 
         // Open Advanced Search
-        .waitForElementByCss('input#case_advSearch').click()
+        .waitForElementByCss('input#case_advSearch', 10000).click()
 
         // Search based on Task Case
         .waitForElementByCss('#case_selTaskName option[value^="Willis Of New Hampshire Inc--020258767#"]').click()
@@ -24,7 +24,7 @@ it("My Widgets - Advanced search", function () {
         .elementByCss('#case_advSearchDiv input[value=Reset]').click()
         .elementByCss('#case_selCaseOwner option[value=AnalystUser1]').click()
         .elementByCss('#case_advSearchDiv input[value=Search]').click()
-        .waitForElementsByCss('div#case_SearchResults table[role=presentation] tr').should.eventually.have.length(1)
+        .waitForElementsByCss('div#case_SearchResults table[role=presentation] tr').should.eventually.have.length.of.at.least(1)
 
         // Search based on Task Status
         .elementByCss('#case_advSearchDiv input[value=Reset]').click()

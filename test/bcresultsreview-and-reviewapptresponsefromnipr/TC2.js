@@ -16,7 +16,7 @@ it("EnterDataAndReviewDocs", function() {
         .waitForElementByLinkText('Dashboard', 10000).click()
 
         // Click on EnterDataAndReviewDocs
-        .waitForElementByCss('select#searchField option[value=TAX_ID]').click()
+        .waitForElementByCss('select#searchField option[value=TAX_ID]', 10000).click()
         .elementByCss('input#searchText').type('208949993')
         .elementByCss('input#search').click()
         .waitForElementByLinkText('EnterDataAndReviewDocs', 10000).click()

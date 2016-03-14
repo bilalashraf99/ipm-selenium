@@ -13,7 +13,7 @@ it("Send Email", function () {
         .login('analyst')
 
         // Click Search icon in My Widgets
-        .waitForElementByCss('#myWidgetDiv input#case_search').click()
+        .waitForElementByCss('#myWidgetDiv input#case_search', 10000).click()
 
         // Open Send Adhoc Email popup and verify contents
         .waitForElementByXPath('//*[@id="case_SearchResults"]//td/div[normalize-space(text())="ACTIVATED"]/parent::td/preceding-sibling::td//input').click()

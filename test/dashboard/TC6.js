@@ -13,7 +13,7 @@ it("Close Case", function() {
         .login('analyst')
 
         // Click Search icon in My Widgets
-        .waitForElementByCss('select#case_searchField option[value=NAME]').click()
+        .waitForElementByCss('select#case_searchField option[value=NAME]', 10000).click()
         .elementByCss('input#case_searchText').type("Fred Sellers")
         .elementByCss('input#case_search').click()
 

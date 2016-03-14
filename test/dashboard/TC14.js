@@ -13,7 +13,7 @@ it("My Widgets - Basic search", function () {
         .login('manager')
 
         // Search based on Case Name
-        .waitForElementByCss('select#case_searchField option[value=CASE_NAME]').click()
+        .waitForElementByCss('select#case_searchField option[value=CASE_NAME]', 10000).click()
         .elementByCss('select#case_OPERATOR option[value=LIKE]').click()
         .elementByCss('input#case_searchText').type('Willis')
         .elementByCss('input#case_search').click()
